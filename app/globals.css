@@ -1,0 +1,264 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS — tong xanh lanh, lay truc tiep tu logo that
+   cua Dien Lanh Thai Tuan (#14397E / #195A9E / #609AC4)
+   ============================================================ */
+@theme {
+  /* Breakpoint phu cho dien thoai rat hep (iPhone SE 320px) */
+  --breakpoint-xs: 400px;
+
+  --color-brand-950: #081733;
+  --color-brand-900: #0E2352;
+  --color-brand-800: #14397E;  /* xanh dam trong logo */
+  --color-brand-700: #195A9E;  /* xanh chu dao trong logo */
+  --color-brand-600: #1E6FBF;
+  --color-brand-500: #3B8FD9;
+  --color-brand-400: #609AC4;  /* xanh nhat trong logo */
+  --color-brand-200: #B9D5EE;
+  --color-brand-100: #DCEAF7;
+  --color-brand-50:  #F2F7FC;
+
+  --color-accent-600: #0891B2;
+  --color-accent-500: #06B6D4;  /* cyan — mau hanh dong */
+  --color-accent-300: #67E8F9;
+
+  --color-warm-500: #F59E0B;    /* diem am duy nhat: gia tien, sao */
+
+  --color-ink:   #0F172A;
+  --color-ink-2: #334155;
+  --color-muted: #64748B;
+  --color-line:  #E2E8F0;
+
+  --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 20px;
+
+  --shadow-soft:  0 4px 16px rgb(11 37 69 / 0.06);
+  --shadow-card:  0 8px 28px rgb(11 37 69 / 0.09);
+  --shadow-lift:  0 18px 48px rgb(11 37 69 / 0.16);
+  --shadow-glow:  0 10px 32px rgb(6 182 212 / 0.35);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================== BASE ============================== */
+@layer base {
+  * { border-color: var(--color-line); }
+
+  html {
+    scroll-behavior: smooth;
+    /* Chua cho header dinh khi nhay den neo #id */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: #fff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* Chua cho thanh CTA co dinh o day tren mobile */
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  }
+  @media (min-width: 1024px) { body { padding-bottom: 0; } }
+
+  h1, h2, h3 { text-wrap: balance; letter-spacing: -0.02em; }
+  p { text-wrap: pretty; }
+
+  /* Input toi thieu 16px de iOS khong tu phong to khi focus */
+  input, select, textarea { font-size: 16px; }
+
+  :focus-visible {
+    outline: 3px solid var(--color-accent-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  summary { cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+}
+
+/* ========================== CHUYEN DONG ========================== */
+@layer utilities {
+  /* Hien dan khi cuon toi — gan boi hook useReveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .7s var(--ease-out-soft), transform .7s var(--ease-out-soft);
+  }
+  .reveal.is-visible { opacity: 1; transform: none; }
+  .reveal-d1 { transition-delay: .06s }
+  .reveal-d2 { transition-delay: .12s }
+  .reveal-d3 { transition-delay: .18s }
+  .reveal-d4 { transition-delay: .24s }
+  .reveal-d5 { transition-delay: .30s }
+  .reveal-d6 { transition-delay: .36s }
+  .reveal-d7 { transition-delay: .42s }
+  .reveal-d8 { transition-delay: .48s }
+
+  /* Bien the: truot ngang (dung cho khoi 2 cot) */
+  .reveal-left  { transform: translateX(-28px) }
+  .reveal-right { transform: translateX(28px) }
+  .reveal-left.is-visible, .reveal-right.is-visible { transform: none }
+
+  /* Bien the: phong nhe (dung cho anh) */
+  .reveal-zoom { transform: scale(.965); opacity: 0 }
+  .reveal-zoom.is-visible { transform: none; opacity: 1 }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 42s linear infinite;
+  }
+  .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  /* Vong song lan quanh nut goi noi */
+  .ping-ring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: var(--color-accent-500);
+    animation: ping-soft 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+    z-index: -1;
+  }
+  @keyframes ping-soft {
+    0%   { transform: scale(1);    opacity: .55 }
+    70%  { transform: scale(1.75); opacity: 0 }
+    100% { transform: scale(1.75); opacity: 0 }
+  }
+
+  .text-gradient {
+    background: linear-gradient(96deg, var(--color-accent-300), #fff 62%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Luoi mo trang tri tren nen toi */
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgb(255 255 255 / .045) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / .045) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .no-scrollbar::-webkit-scrollbar { display: none }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none }
+
+  /* Anh hero phong rat cham (Ken Burns) — thuan CSS, khong ton JS, khong gay giat */
+  .ken-burns {
+    animation: ken-burns 26s var(--ease-out-soft) infinite alternate;
+    transform-origin: 58% 62%;
+  }
+  @keyframes ken-burns {
+    from { transform: scale(1) }
+    to   { transform: scale(1.09) }
+  }
+
+  /* Vet sang quet qua nut chinh khi ro chuot */
+  .shine { position: relative; overflow: hidden; isolation: isolate }
+  .shine::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 -60%;
+    width: 45%;
+    background: linear-gradient(105deg, transparent, rgb(255 255 255 / .55), transparent);
+    transform: skewX(-18deg);
+    opacity: 0;
+  }
+  .shine:hover::after { animation: shine-sweep .85s var(--ease-out-soft) forwards }
+  @keyframes shine-sweep {
+    from { left: -60%; opacity: 1 }
+    to   { left: 130%; opacity: 0 }
+  }
+
+  /* Duong noi giua cac buoc quy trinh — ve dan tu trai sang */
+  .draw-line { transform: scaleX(0); transform-origin: left; transition: transform .8s var(--ease-out-soft) .35s }
+  .is-visible .draw-line, .reveal.is-visible .draw-line { transform: scaleX(1) }
+
+  /* ---------------- TUYET ROI ----------------
+     Dat trong khoi nen toi. Dung don vi cqh de hat roi vua dung
+     chieu cao khoi chua, khong phu thuoc chieu cao man hinh. */
+  .snow-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    container-type: size;
+    z-index: 1;
+  }
+  .snow-flake {
+    position: absolute;
+    top: -24px;
+    border-radius: 9999px;
+    background: #fff;
+    /* Quang sang nhe giup hat noi len tren anh nen */
+    box-shadow: 0 0 7px rgb(255 255 255 / 0.5);
+    opacity: 0;
+    will-change: transform;
+    animation: snow-fall var(--dur) linear var(--delay) infinite;
+  }
+
+  /* Lop gan: hoa tuyet 6 canh — cung mo-tip voi bong tuyet trong logo */
+  .snow-star {
+    border-radius: 0;
+    box-shadow: none;
+    background: no-repeat center / contain
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M12 1.5v21M2.9 6.75l18.2 10.5M21.1 6.75L2.9 17.25'/%3E%3Cpath d='M12 5.4 9.4 3M12 5.4 14.6 3M12 18.6 9.4 21M12 18.6l2.6 2.4M6.1 8.9 2.7 8.4M6.1 8.9 5.6 5.5M17.9 15.1l3.4.5M17.9 15.1l.5 3.4M6.1 15.1l-3.4.5M6.1 15.1l-.5 3.4M17.9 8.9l3.4-.5M17.9 8.9l.5-3.4'/%3E%3C/svg%3E");
+    filter: drop-shadow(0 0 4px rgb(255 255 255 / 0.45));
+  }
+  @keyframes snow-fall {
+    0%   { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0 }
+    8%   { opacity: var(--o) }
+    88%  { opacity: var(--o) }
+    100% { transform: translate3d(var(--drift), calc(100cqh + 24px), 0) rotate(var(--spin)); opacity: 0 }
+  }
+  /* Trinh duyet cu chua ho tro cqh: dung chieu cao man hinh lam muc thay the */
+  @supports not (height: 100cqh) {
+    @keyframes snow-fall {
+      0%   { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0 }
+      8%   { opacity: var(--o) }
+      88%  { opacity: var(--o) }
+      100% { transform: translate3d(var(--drift), 105vh, 0) rotate(var(--spin)); opacity: 0 }
+    }
+  }
+
+  /* Hop anh phong to */
+  .lightbox-in { animation: lightbox-in .32s var(--ease-out-soft) }
+  @keyframes lightbox-in {
+    from { opacity: 0; transform: scale(.94) }
+    to   { opacity: 1; transform: none }
+  }
+}
+
+/* Ton trong nguoi dung tat hieu ung chuyen dong */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal, .reveal-zoom { opacity: 1 !important; transform: none !important; }
+  .draw-line { transform: scaleX(1) !important; }
+  .ken-burns { animation: none !important; }
+  .shine::after { display: none !important; }
+
+  /* Vong song lan quanh nut goi: bo han thay vi de no giat toi trang thai cuoi */
+  .ping-ring::before { display: none !important; }
+
+  /* Tuyet roi: an han, khong de treo lo lung giua khong trung */
+  .snow-layer { display: none !important; }
+
+  /* Dai hang: dung chay, cho phep nguoi dung tu vuot ngang de xem */
+  .marquee-track { animation: none !important; }
+  .marquee-wrap {
+    overflow-x: auto !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+}

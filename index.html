@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Điện Lạnh 24H — Sửa máy lạnh, tủ lạnh, máy giặt tại nhà TP.HCM</title>
+<meta name="description" content="Dịch vụ sửa chữa & vệ sinh máy lạnh, tủ lạnh, máy giặt, tivi tại nhà. Thợ có mặt sau 30 phút, báo giá trước khi sửa, bảo hành đến 12 tháng.">
+<meta name="theme-color" content="#E11D2E">
+
+<!--
+  ==========================================================
+  LANDING PAGE DEMO — DỮ LIỆU CHƯA PHẢI THÔNG TIN THẬT
+  ----------------------------------------------------------
+  Cần thay khi đưa vào chạy thật:
+   1. Tên thương hiệu ............ "Điện Lạnh 24H"
+   2. Hotline / Zalo ............. 0912 345 678  (tìm: DEMO-PHONE)
+   3. Địa chỉ / Email / MST ...... phần <footer>
+   4. Ảnh thật ................... các khối .ph (placeholder ảnh)
+   5. Bảng giá ................... section #banggia
+   6. Link Zalo / Fanpage / Map .. các thẻ có href="#"
+   7. Gắn Google Analytics / Pixel / gọi API form đặt lịch
+  ==========================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ===================== TOKENS ===================== */
+:root{
+  --red:#E11D2E;
+  --red-dark:#B3121F;
+  --red-soft:#FFF1F2;
+  --orange:#F97316;
+  --ink:#111827;
+  --ink-2:#374151;
+  --muted:#6B7280;
+  --line:#E5E7EB;
+  --bg:#FFFFFF;
+  --bg-2:#F8F9FB;
+  --green:#16A34A;
+  --blue:#0068FF;
+
+  --r-sm:10px; --r:16px; --r-lg:24px;
+  --shadow:0 4px 16px rgba(17,24,39,.07);
+  --shadow-lg:0 18px 48px rgba(17,24,39,.14);
+  --wrap:1160px;
+  --bar-h:64px;              /* thanh hành động dưới cùng (mobile) */
+  --font:'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+/* ===================== RESET ===================== */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth; scroll-padding-top:88px}
+body{
+  margin:0; font-family:var(--font); color:var(--ink); background:var(--bg);
+  font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%; display:block}
+a{color:inherit; text-decoration:none}
+button,input,select,textarea{font:inherit; color:inherit}
+h1,h2,h3,h4{margin:0; line-height:1.2; font-weight:800; letter-spacing:-.02em}
+p{margin:0}
+ul{margin:0; padding:0; list-style:none}
+
+/* ===================== LAYOUT ===================== */
+.wrap{width:100%; max-width:var(--wrap); margin-inline:auto; padding-inline:20px}
+section{padding:72px 0}
+.sec-head{max-width:680px; margin:0 auto 44px; text-align:center}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px; margin-bottom:14px;
+  font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--red);
+}
+.eyebrow::before{content:""; width:26px; height:2px; background:var(--red); border-radius:2px}
+.sec-head h2{font-size:clamp(26px,4.4vw,40px)}
+.sec-head p{margin-top:14px; color:var(--muted); font-size:17px}
+.grid{display:grid; gap:20px}
+
+/* ===================== BUTTONS ===================== */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  padding:14px 26px; border-radius:999px; border:1px solid transparent;
+  font-weight:700; font-size:16px; cursor:pointer; white-space:nowrap;
+  transition:transform .16s ease, box-shadow .16s ease, background .16s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn-red{background:var(--red); color:#fff; box-shadow:0 8px 22px rgba(225,29,46,.32)}
+.btn-red:hover{background:var(--red-dark)}
+.btn-orange{background:var(--orange); color:#fff; box-shadow:0 8px 22px rgba(249,115,22,.34)}
+.btn-white{background:#fff; color:var(--red)}
+.btn-ghost{background:transparent; border-color:rgba(255,255,255,.55); color:#fff}
+.btn-outline{background:#fff; border-color:var(--line); color:var(--ink)}
+.btn-lg{padding:17px 34px; font-size:17px}
+.ic{width:20px; height:20px; flex:none; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+
+/* ===================== HEADER ===================== */
+.hdr{
+  position:sticky; top:0; z-index:60; background:rgba(255,255,255,.94);
+  backdrop-filter:saturate(180%) blur(12px); border-bottom:1px solid var(--line);
+}
+.hdr-in{display:flex; align-items:center; gap:20px; height:72px}
+.logo{display:flex; align-items:center; gap:11px; font-weight:800; font-size:19px; letter-spacing:-.02em}
+.logo-mark{
+  width:42px; height:42px; border-radius:12px; flex:none; display:grid; place-items:center;
+  background:linear-gradient(135deg,var(--red),var(--orange)); color:#fff;
+  box-shadow:0 6px 16px rgba(225,29,46,.3);
+}
+.logo-mark svg{width:24px; height:24px}
+.logo small{display:block; font-size:11.5px; font-weight:500; color:var(--muted); letter-spacing:0}
+.nav{display:flex; gap:4px; margin-left:auto}
+.nav a{padding:9px 14px; border-radius:999px; font-size:15px; font-weight:600; color:var(--ink-2); transition:.15s}
+.nav a:hover{background:var(--red-soft); color:var(--red)}
+.hdr-cta{display:flex; align-items:center; gap:12px}
+.hdr-phone{display:flex; flex-direction:column; line-height:1.25}
+.hdr-phone span{font-size:11.5px; color:var(--muted); font-weight:600}
+.hdr-phone b{font-size:19px; color:var(--red); letter-spacing:-.01em}
+.burger{display:none; width:44px; height:44px; border:1px solid var(--line); border-radius:12px; background:#fff; cursor:pointer; align-items:center; justify-content:center}
+.burger svg{width:22px; height:22px; stroke:var(--ink); stroke-width:2; stroke-linecap:round}
+
+/* menu mobile */
+.mnav{display:none; border-top:1px solid var(--line); background:#fff; padding:10px 0 18px}
+.mnav.open{display:block}
+.mnav a{display:block; padding:13px 4px; font-weight:600; border-bottom:1px solid var(--line)}
+.mnav .btn{width:100%; margin-top:14px}
+
+/* ===================== HERO ===================== */
+.hero{
+  position:relative; overflow:hidden; padding:56px 0 72px; color:#fff;
+  background:linear-gradient(150deg,#E11D2E 0%,#C81127 52%,#96101E 100%);
+}
+.hero::before{
+  content:""; position:absolute; inset:0; opacity:.35; pointer-events:none;
+  background:
+    radial-gradient(700px 340px at 88% 8%, rgba(255,255,255,.22), transparent 65%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,.05) 0 2px, transparent 2px 26px);
+}
+.hero-in{position:relative; display:grid; grid-template-columns:1.05fr .95fr; gap:52px; align-items:center}
+.badge{
+  display:inline-flex; align-items:center; gap:8px; padding:7px 15px; border-radius:999px;
+  background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.28);
+  font-size:13.5px; font-weight:600; margin-bottom:20px;
+}
+.dot{width:8px; height:8px; border-radius:50%; background:#4ADE80; box-shadow:0 0 0 4px rgba(74,222,128,.28); animation:pulse 1.8s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 9px rgba(74,222,128,0)}}
+.hero h1{font-size:clamp(32px,5.2vw,54px); line-height:1.08}
+.hero h1 em{font-style:normal; color:#FFD9A0; display:block}
+.hero .lead{margin-top:18px; font-size:17.5px; color:rgba(255,255,255,.9); max-width:520px}
+.hero-usp{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:22px}
+.hero-usp li{display:flex; align-items:center; gap:8px; font-weight:600; font-size:15px}
+.hero-usp svg{width:19px; height:19px; flex:none; color:#4ADE80}
+.hero-btns{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px}
+.hero-note{margin-top:20px; font-size:14px; color:rgba(255,255,255,.75)}
+
+/* form đặt lịch trong hero */
+.card-form{
+  background:#fff; color:var(--ink); border-radius:var(--r-lg); padding:28px;
+  box-shadow:var(--shadow-lg);
+}
+.card-form h3{font-size:21px}
+.card-form .sub{margin-top:6px; font-size:14.5px; color:var(--muted); margin-bottom:20px}
+.field{margin-bottom:14px}
+.field label{display:block; font-size:13.5px; font-weight:700; margin-bottom:6px; color:var(--ink-2)}
+.field input,.field select,.field textarea{
+  width:100%; padding:13px 15px; border:1.5px solid var(--line); border-radius:var(--r-sm);
+  background:#fff; font-size:15.5px; transition:.15s; outline:none;
+}
+.field textarea{resize:vertical; min-height:82px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--red); box-shadow:0 0 0 4px rgba(225,29,46,.1)}
+.field.err input,.field.err select{border-color:var(--red); background:var(--red-soft)}
+.err-msg{display:none; margin-top:5px; font-size:12.5px; color:var(--red); font-weight:600}
+.field.err .err-msg{display:block}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.form-ok{
+  display:none; margin-top:16px; padding:14px 16px; border-radius:var(--r-sm);
+  background:#ECFDF5; border:1px solid #A7F3D0; color:#065F46; font-size:14.5px; font-weight:600;
+}
+.form-ok.show{display:block}
+.privacy{margin-top:12px; font-size:12.5px; color:var(--muted); text-align:center}
+
+/* ===================== TRUST BAR ===================== */
+.trust{background:var(--bg-2); border-bottom:1px solid var(--line); padding:34px 0}
+.trust-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; text-align:center}
+.trust b{display:block; font-size:clamp(26px,3.4vw,36px); color:var(--red); letter-spacing:-.02em}
+.trust span{font-size:14px; color:var(--muted); font-weight:600}
+
+/* ===================== ẢNH PLACEHOLDER ===================== */
+.ph{
+  position:relative; border-radius:var(--r); overflow:hidden;
+  background:linear-gradient(135deg,#F3F4F6,#E5E7EB);
+  display:grid; place-items:center; color:#9CA3AF; font-size:13px; font-weight:600;
+  border:1px dashed #D1D5DB; aspect-ratio:4/3;
+}
+.ph::after{content:"ẢNH DEMO"; letter-spacing:.12em}
+
+/* ===================== DỊCH VỤ ===================== */
+.svc-grid{grid-template-columns:repeat(3,1fr)}
+.svc{
+  background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); padding:26px;
+  transition:.22s ease; position:relative; overflow:hidden;
+}
+.svc:hover{transform:translateY(-5px); box-shadow:var(--shadow-lg); border-color:transparent}
+.svc-ic{
+  width:56px; height:56px; border-radius:16px; display:grid; place-items:center; margin-bottom:18px;
+  background:var(--red-soft); color:var(--red);
+}
+.svc-ic svg{width:28px; height:28px}
+.svc h3{font-size:19px; margin-bottom:9px}
+.svc p{font-size:15px; color:var(--muted); margin-bottom:16px}
+.svc ul li{display:flex; gap:9px; font-size:14.5px; color:var(--ink-2); padding:4px 0}
+.svc ul svg{width:17px; height:17px; flex:none; color:var(--green); margin-top:4px}
+.svc-price{
+  margin-top:18px; padding-top:16px; border-top:1px dashed var(--line);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.svc-price b{color:var(--red); font-size:17px}
+.svc-price small{color:var(--muted); font-size:12.5px; display:block; font-weight:500}
+.svc-price a{font-size:14.5px; font-weight:700; color:var(--red); display:inline-flex; align-items:center; gap:5px}
+.svc-price a:hover{gap:9px; transition:gap .15s}
+
+/* ===================== VÌ SAO CHỌN ===================== */
+.why{background:var(--bg-2)}
+.why-grid{grid-template-columns:repeat(3,1fr)}
+.why-card{background:#fff; border-radius:var(--r); padding:24px; border:1px solid var(--line)}
+.why-card .n{
+  width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg,var(--red),var(--orange));
+  color:#fff; display:grid; place-items:center; font-weight:800; margin-bottom:14px; font-size:16px;
+}
+.why-card h3{font-size:17px; margin-bottom:7px}
+.why-card p{font-size:14.5px; color:var(--muted)}
+
+/* ===================== QUY TRÌNH ===================== */
+.steps{grid-template-columns:repeat(4,1fr); counter-reset:s}
+.step{position:relative; padding-top:22px}
+.step::before{
+  counter-increment:s; content:counter(s);
+  position:absolute; top:-14px; left:0; font-size:56px; font-weight:800;
+  color:var(--red); opacity:.13; line-height:1;
+}
+.step h3{font-size:17px; margin-bottom:8px; position:relative}
+.step p{font-size:14.5px; color:var(--muted)}
+.step-line{height:2px; background:linear-gradient(90deg,var(--red),rgba(225,29,46,.12)); margin-bottom:16px; border-radius:2px}
+
+/* ===================== BẢNG GIÁ ===================== */
+.price-wrap{border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow)}
+.tbl-scroll{overflow-x:auto}
+table{width:100%; border-collapse:collapse; min-width:600px}
+thead th{
+  background:var(--ink); color:#fff; text-align:left; padding:15px 20px;
+  font-size:14px; font-weight:700; letter-spacing:.02em; white-space:nowrap;
+}
+tbody td{padding:15px 20px; border-bottom:1px solid var(--line); font-size:15px}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even){background:var(--bg-2)}
+tbody td:first-child{font-weight:600}
+.price-val{color:var(--red); font-weight:700; white-space:nowrap}
+.note{margin-top:16px; font-size:13.5px; color:var(--muted); display:flex; gap:8px; align-items:flex-start}
+.note svg{width:17px; height:17px; flex:none; color:var(--orange); margin-top:4px}
+
+/* ===================== KHU VỰC ===================== */
+.area{background:var(--bg-2)}
+.area-grid{display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center}
+.chips{display:flex; flex-wrap:wrap; gap:9px; margin-top:22px}
+.chip{
+  padding:8px 15px; border-radius:999px; background:#fff; border:1px solid var(--line);
+  font-size:14px; font-weight:600; color:var(--ink-2);
+}
+.chip:hover{border-color:var(--red); color:var(--red)}
+
+/* ===================== ĐÁNH GIÁ ===================== */
+.rv-grid{grid-template-columns:repeat(3,1fr)}
+.rv{background:#fff; border:1px solid var(--line); border-radius:var(--r); padding:24px; display:flex; flex-direction:column}
+.stars{display:flex; gap:2px; margin-bottom:12px; color:#F59E0B}
+.stars svg{width:17px; height:17px; fill:currentColor; stroke:none}
+.rv p{font-size:15px; color:var(--ink-2); flex:1}
+.rv-who{display:flex; align-items:center; gap:12px; margin-top:18px; padding-top:16px; border-top:1px solid var(--line)}
+.av{
+  width:42px; height:42px; border-radius:50%; flex:none; display:grid; place-items:center;
+  background:var(--red-soft); color:var(--red); font-weight:800; font-size:15px;
+}
+.rv-who b{display:block; font-size:14.5px}
+.rv-who span{font-size:13px; color:var(--muted)}
+
+/* ===================== FAQ ===================== */
+.faq{max-width:820px; margin-inline:auto}
+details{border:1px solid var(--line); border-radius:var(--r); margin-bottom:12px; background:#fff; overflow:hidden}
+details[open]{border-color:var(--red); box-shadow:var(--shadow)}
+summary{
+  padding:18px 54px 18px 20px; font-weight:700; cursor:pointer; position:relative;
+  list-style:none; font-size:16px;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:""; position:absolute; right:20px; top:22px; width:11px; height:11px;
+  border-right:2.5px solid var(--red); border-bottom:2.5px solid var(--red);
+  transform:rotate(45deg); transition:.2s;
+}
+details[open] summary::after{transform:rotate(-135deg); top:26px}
+details .ans{padding:0 20px 20px; color:var(--muted); font-size:15px}
+
+/* ===================== CTA CUỐI ===================== */
+.cta{
+  background:linear-gradient(135deg,var(--ink) 0%,#1F2937 100%); color:#fff; text-align:center;
+  position:relative; overflow:hidden;
+}
+.cta::before{
+  content:""; position:absolute; inset:0;
+  background:radial-gradient(560px 280px at 50% -10%, rgba(225,29,46,.42), transparent 70%);
+}
+.cta-in{position:relative}
+.cta h2{font-size:clamp(26px,4.2vw,38px)}
+.cta p{margin:16px auto 30px; max-width:560px; color:rgba(255,255,255,.78); font-size:17px}
+.cta-btns{display:flex; gap:14px; justify-content:center; flex-wrap:wrap}
+
+/* ===================== FOOTER ===================== */
+footer{background:#0B1220; color:rgba(255,255,255,.66); padding:56px 0 24px; font-size:14.5px}
+.ft-grid{display:grid; grid-template-columns:1.5fr 1fr 1fr 1.2fr; gap:36px; margin-bottom:36px}
+footer h4{color:#fff; font-size:15px; margin-bottom:16px; letter-spacing:.02em}
+footer li{padding:5px 0}
+footer a:hover{color:#fff}
+.ft-logo{display:flex; align-items:center; gap:11px; color:#fff; font-weight:800; font-size:18px; margin-bottom:14px}
+.ft-bot{border-top:1px solid rgba(255,255,255,.1); padding-top:22px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:13.5px}
+.demo-tag{
+  display:inline-block; padding:3px 10px; border-radius:999px; background:rgba(249,115,22,.2);
+  color:#FDBA74; font-size:12px; font-weight:700; letter-spacing:.04em;
+}
+
+/* ===================== NÚT NỔI + BOTTOM BAR ===================== */
+.float{position:fixed; right:16px; bottom:96px; z-index:70; display:flex; flex-direction:column; gap:10px}
+.fbtn{
+  width:52px; height:52px; border-radius:50%; display:grid; place-items:center; color:#fff;
+  box-shadow:var(--shadow-lg); position:relative;
+}
+.fbtn svg{width:24px; height:24px}
+.fbtn.call{background:var(--red); animation:ring 2.4s infinite}
+.fbtn.zalo{background:var(--blue); font-weight:800; font-size:13px; letter-spacing:.02em}
+@keyframes ring{0%,100%{box-shadow:0 0 0 0 rgba(225,29,46,.55)}70%{box-shadow:0 0 0 16px rgba(225,29,46,0)}}
+
+.bar{
+  position:fixed; left:0; right:0; bottom:0; z-index:80; display:none;
+  grid-template-columns:repeat(3,1fr); height:var(--bar-h);
+  box-shadow:0 -4px 18px rgba(0,0,0,.14);
+}
+.bar a{
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+  color:#fff; font-size:12.5px; font-weight:700;
+}
+.bar svg{width:21px; height:21px}
+.bar .b1{background:var(--red)} .bar .b2{background:var(--blue)} .bar .b3{background:var(--orange)}
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+/* ---------- 1. Reveal khi cuộn tới ---------- */
+.rv-anim{
+  opacity:0; transform:translateY(26px);
+  transition:opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1);
+  transition-delay:var(--d,0ms);
+}
+.rv-anim.in{opacity:1; transform:none}
+/* biến thể hướng */
+.rv-anim[data-anim="left"]{transform:translateX(-38px)}
+.rv-anim[data-anim="right"]{transform:translateX(38px)}
+.rv-anim[data-anim="zoom"]{transform:scale(.9)}
+.rv-anim[data-anim="fade"]{transform:none}
+
+/* ---------- 2. Hero vào trang (chạy ngay khi load) ---------- */
+.h-anim{opacity:0; animation:heroUp .8s cubic-bezier(.22,1,.36,1) forwards; animation-delay:var(--d,0ms)}
+@keyframes heroUp{from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:none}}
+
+/* ---------- 3. Hạt tuyết trong hero ---------- */
+.snow{position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0}
+.snow i{
+  position:absolute; top:-8%; color:rgba(255,255,255,.55);
+  animation:fall linear infinite; will-change:transform;
+}
+.snow i svg{width:100%; height:100%; display:block}
+@keyframes fall{
+  0%{transform:translate3d(0,-10vh,0) rotate(0deg); opacity:0}
+  10%{opacity:1}
+  90%{opacity:.8}
+  100%{transform:translate3d(var(--dx,20px),112vh,0) rotate(320deg); opacity:0}
+}
+
+/* ---------- 4. Thanh tiến trình cuộn ---------- */
+.progress{
+  position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+  background:linear-gradient(90deg,var(--orange),var(--red));
+  box-shadow:0 0 12px rgba(225,29,46,.6); transition:width .1s linear;
+}
+
+/* ---------- 5. Header co lại khi cuộn ---------- */
+.hdr{transition:box-shadow .28s ease, background .28s ease}
+.hdr.scrolled{box-shadow:0 6px 24px rgba(17,24,39,.09)}
+.hdr-in{transition:height .28s cubic-bezier(.22,1,.36,1)}
+.hdr.scrolled .hdr-in{height:60px}
+.logo-mark{transition:transform .28s cubic-bezier(.34,1.56,.64,1)}
+.logo:hover .logo-mark{transform:rotate(90deg) scale(1.06)}
+
+/* gạch chân trượt cho nav */
+.nav a{position:relative}
+.nav a::after{
+  content:""; position:absolute; left:14px; right:14px; bottom:4px; height:2px;
+  background:var(--red); border-radius:2px; transform:scaleX(0); transform-origin:left;
+  transition:transform .28s cubic-bezier(.22,1,.36,1);
+}
+.nav a:hover::after{transform:scaleX(1)}
+
+/* menu mobile trượt xuống */
+.mnav.open{animation:slideDown .3s cubic-bezier(.22,1,.36,1)}
+@keyframes slideDown{from{opacity:0; transform:translateY(-12px)} to{opacity:1; transform:none}}
+.mnav.open a{opacity:0; animation:heroUp .4s ease forwards}
+.mnav.open a:nth-child(1){animation-delay:.04s} .mnav.open a:nth-child(2){animation-delay:.08s}
+.mnav.open a:nth-child(3){animation-delay:.12s} .mnav.open a:nth-child(4){animation-delay:.16s}
+.mnav.open a:nth-child(5){animation-delay:.2s}  .mnav.open a:nth-child(6){animation-delay:.24s}
+.mnav.open a:nth-child(7){animation-delay:.28s}
+.burger svg{transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.burger[aria-expanded="true"] svg{transform:rotate(90deg)}
+
+/* ---------- 6. Nút: vệt sáng quét + nảy nhẹ ---------- */
+.btn{position:relative; overflow:hidden; isolation:isolate}
+.btn::after{
+  content:""; position:absolute; inset:0; z-index:-1; transform:translateX(-120%) skewX(-18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+}
+.btn:hover::after{transform:translateX(120%) skewX(-18deg)}
+.btn-red:hover,.btn-orange:hover{box-shadow:0 14px 30px rgba(225,29,46,.4)}
+
+/* ---------- 7. Con số đếm ---------- */
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- 8. Marquee thương hiệu ---------- */
+.brands{padding:34px 0; border-bottom:1px solid var(--line); overflow:hidden; background:#fff}
+.brands-label{text-align:center; font-size:13px; font-weight:700; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:22px}
+.marquee{display:flex; overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.marquee ul{display:flex; gap:56px; padding-right:56px; flex:none; animation:scrollX 26s linear infinite}
+.marquee:hover ul{animation-play-state:paused}
+.marquee li{font-size:22px; font-weight:800; color:#9CA3AF; letter-spacing:-.02em; white-space:nowrap;
+  transition:color .2s ease}
+.marquee li:hover{color:var(--red)}
+@keyframes scrollX{to{transform:translateX(-100%)}}
+
+/* ---------- 9. Card dịch vụ ---------- */
+.svc{transform:translateZ(0)}
+.svc::before{
+  content:""; position:absolute; inset:0; opacity:0; transition:opacity .3s ease; pointer-events:none;
+  background:radial-gradient(420px 220px at 50% 0%, rgba(225,29,46,.07), transparent 70%);
+}
+.svc:hover::before{opacity:1}
+.svc-ic{transition:transform .35s cubic-bezier(.34,1.56,.64,1), background .3s ease, color .3s ease}
+.svc:hover .svc-ic{transform:scale(1.1) rotate(-7deg); background:var(--red); color:#fff}
+.svc h3{transition:color .22s ease}
+.svc:hover h3{color:var(--red)}
+.svc ul li{transition:transform .22s ease}
+.svc:hover ul li{transform:translateX(4px)}
+.svc:hover ul li:nth-child(2){transition-delay:.04s}
+.svc:hover ul li:nth-child(3){transition-delay:.08s}
+
+/* ---------- 10. Vì sao chọn / quy trình ---------- */
+.why-card{transition:transform .26s ease, box-shadow .26s ease, border-color .26s ease}
+.why-card:hover{transform:translateY(-5px); box-shadow:var(--shadow-lg); border-color:transparent}
+.why-card .n{transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.why-card:hover .n{transform:rotate(-10deg) scale(1.12)}
+.step-line{transform:scaleX(0); transform-origin:left; transition:transform .7s cubic-bezier(.22,1,.36,1) var(--d,0ms)}
+.rv-anim.in .step-line{transform:scaleX(1)}
+.step::before{transition:opacity .3s ease, transform .3s ease}
+.step:hover::before{opacity:.24; transform:scale(1.08)}
+
+/* ---------- 11. Bảng giá ---------- */
+tbody tr{transition:background .18s ease}
+tbody tr:hover{background:var(--red-soft)}
+tbody tr:hover .price-val{transform:scale(1.05); display:inline-block}
+.price-val{transition:transform .18s ease}
+
+/* ---------- 12. Chip khu vực ---------- */
+.chip{transition:transform .2s cubic-bezier(.34,1.56,.64,1), border-color .2s ease, color .2s ease, box-shadow .2s ease}
+.chip:hover{transform:translateY(-3px); box-shadow:0 6px 14px rgba(225,29,46,.16)}
+
+/* ---------- 13. Ảnh placeholder: shimmer ---------- */
+.ph{position:relative; overflow:hidden}
+.ph::before{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(100deg,transparent 25%,rgba(255,255,255,.75) 50%,transparent 75%);
+  transform:translateX(-100%); animation:shimmer 2.4s infinite;
+}
+@keyframes shimmer{to{transform:translateX(100%)}}
+
+/* ---------- 14. Đánh giá: sao nảy lần lượt ---------- */
+.rv .stars svg{transform:scale(0); transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+.rv.in .stars svg{transform:scale(1)}
+.rv.in .stars svg:nth-child(1){transition-delay:.05s} .rv.in .stars svg:nth-child(2){transition-delay:.13s}
+.rv.in .stars svg:nth-child(3){transition-delay:.21s} .rv.in .stars svg:nth-child(4){transition-delay:.29s}
+.rv.in .stars svg:nth-child(5){transition-delay:.37s}
+.rv{transition:transform .26s ease, box-shadow .26s ease}
+.rv:hover{transform:translateY(-4px); box-shadow:var(--shadow-lg)}
+
+/* ---------- 15. FAQ mở/đóng mượt (JS điều khiển chiều cao) ---------- */
+details .ans{overflow:hidden}
+details.animating .ans{
+  transition:height .32s cubic-bezier(.22,1,.36,1), opacity .32s ease, padding-bottom .32s ease;
+}
+summary{transition:color .2s ease, background .2s ease}
+summary:hover{color:var(--red); background:var(--red-soft)}
+
+/* ---------- 16. Nút nổi ---------- */
+.fbtn{transition:transform .26s cubic-bezier(.34,1.56,.64,1), opacity .26s ease, visibility .26s}
+.fbtn:hover{transform:scale(1.12) translateY(-2px)}
+.fbtn.call svg{animation:shake 2.4s infinite}
+@keyframes shake{
+  0%,72%,100%{transform:rotate(0)}
+  76%{transform:rotate(-16deg)} 80%{transform:rotate(14deg)}
+  84%{transform:rotate(-12deg)} 88%{transform:rotate(10deg)} 92%{transform:rotate(-6deg)}
+}
+button.fbtn{border:0; cursor:pointer; padding:0; font-family:inherit}
+.fbtn.top{background:var(--ink); opacity:0; visibility:hidden; transform:scale(.5)}
+.fbtn.top.show{opacity:1; visibility:visible; transform:scale(1)}
+
+/* thanh dưới cùng mobile */
+.bar a{transition:filter .18s ease, transform .18s ease}
+.bar a:active{filter:brightness(.88); transform:scale(.97)}
+
+/* CTA cuối: nền chuyển động chậm */
+.cta::before{animation:glow 9s ease-in-out infinite alternate}
+@keyframes glow{from{opacity:.75; transform:translateY(0)} to{opacity:1; transform:translateY(14px)}}
+
+/* ---------- 17. Tôn trọng prefers-reduced-motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  html{scroll-behavior:auto}
+  .rv-anim,.h-anim{opacity:1 !important; transform:none !important}
+  .rv .stars svg,.step-line{transform:none !important}
+  .snow,.ph::before{display:none}
+  .marquee ul{animation:none}
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width:1024px){
+  .hero-in{grid-template-columns:1fr; gap:38px}
+  .svc-grid,.why-grid,.rv-grid{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr); gap:28px}
+  .ft-grid{grid-template-columns:1fr 1fr}
+  .nav{display:none}
+}
+@media (max-width:860px){
+  .burger{display:flex}
+  .hdr-phone{display:none}
+  .hdr-cta .btn{display:none}
+  .area-grid{grid-template-columns:1fr; gap:28px}
+}
+@media (max-width:640px){
+  section{padding:52px 0}
+  body{padding-bottom:var(--bar-h)}
+  .bar{display:grid}
+  .float{bottom:calc(var(--bar-h) + 14px)}
+  .svc-grid,.why-grid,.rv-grid{grid-template-columns:1fr}
+  .trust-grid{grid-template-columns:1fr 1fr; gap:24px}
+  .steps{grid-template-columns:1fr}
+  .ft-grid{grid-template-columns:1fr; gap:28px}
+  .two{grid-template-columns:1fr}
+  .card-form{padding:22px}
+  .hero{padding:40px 0 56px}
+  .hero-btns .btn{flex:1; min-width:150px}
+  .ft-bot{justify-content:center; text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- Thanh tiến trình cuộn trang -->
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- ============ HEADER ============ -->
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a href="#top" class="logo">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" class="ic"><path d="M12 3v18M3 12h18M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>
+      </span>
+      <span>Điện Lạnh 24H
+        <small>Sửa máy lạnh · tủ lạnh · máy giặt</small>
+      </span>
+    </a>
+
+    <nav class="nav">
+      <a href="#dichvu">Dịch vụ</a>
+      <a href="#quytrinh">Quy trình</a>
+      <a href="#banggia">Bảng giá</a>
+      <a href="#khuvuc">Khu vực</a>
+      <a href="#danhgia">Đánh giá</a>
+      <a href="#faq">Hỏi đáp</a>
+    </nav>
+
+    <div class="hdr-cta">
+      <!-- DEMO-PHONE -->
+      <a href="tel:0912345678" class="hdr-phone">
+        <span>Hotline 24/7</span>
+        <b>0912 345 678</b>
+      </a>
+      <a href="#datlich" class="btn btn-orange">Đặt lịch</a>
+      <button class="burger" id="burger" aria-label="Mở menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="mnav wrap" id="mnav">
+    <a href="#dichvu">Dịch vụ</a>
+    <a href="#quytrinh">Quy trình</a>
+    <a href="#banggia">Bảng giá</a>
+    <a href="#khuvuc">Khu vực phục vụ</a>
+    <a href="#danhgia">Đánh giá</a>
+    <a href="#faq">Hỏi đáp</a>
+    <a href="#datlich" class="btn btn-red">Đặt lịch ngay</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <!-- hạt tuyết trang trí, được JS sinh ra; ẩn khi user tắt hiệu ứng -->
+  <div class="snow" id="snow" aria-hidden="true"></div>
+
+  <div class="wrap hero-in">
+    <div>
+      <span class="badge h-anim" style="--d:60ms"><i class="dot"></i> Đang nhận lịch — thợ có mặt sau 30 phút</span>
+      <h1 class="h-anim" style="--d:160ms">Sửa máy lạnh, tủ lạnh, máy giặt <em>tại nhà TP.HCM</em></h1>
+      <p class="lead h-anim" style="--d:280ms">
+        Kiểm tra miễn phí, báo giá trước khi sửa — không phát sinh.
+        Kỹ thuật viên tay nghề cao, có mặt trong 30 phút, bảo hành đến 12 tháng.
+      </p>
+
+      <ul class="hero-usp h-anim" style="--d:380ms">
+        <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Miễn phí kiểm tra</li>
+        <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Báo giá trước</li>
+        <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Bảo hành 12 tháng</li>
+        <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Làm việc cả T7 – CN</li>
+      </ul>
+
+      <div class="hero-btns h-anim" style="--d:480ms">
+        <!-- DEMO-PHONE -->
+        <a href="tel:0912345678" class="btn btn-white btn-lg">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg>
+          Gọi 0912 345 678
+        </a>
+        <a href="#datlich" class="btn btn-ghost btn-lg">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Đặt lịch online
+        </a>
+      </div>
+
+      <p class="hero-note h-anim" style="--d:580ms">★ 4.9/5 từ hơn 2.400 lượt đánh giá · Hoạt động 8:00 – 21:00 tất cả các ngày</p>
+    </div>
+
+    <!-- FORM ĐẶT LỊCH -->
+    <div class="card-form h-anim" id="datlich" style="--d:340ms">
+      <h3>Đặt lịch thợ đến nhà</h3>
+      <p class="sub">Điền thông tin, tổng đài gọi lại xác nhận trong 5 phút.</p>
+
+      <form id="bookingForm" novalidate>
+        <div class="field" data-req>
+          <label for="f-name">Họ và tên</label>
+          <input id="f-name" name="name" type="text" placeholder="Nguyễn Văn A" autocomplete="name">
+          <span class="err-msg">Vui lòng nhập họ tên</span>
+        </div>
+
+        <div class="two">
+          <div class="field" data-req data-phone>
+            <label for="f-phone">Số điện thoại</label>
+            <input id="f-phone" name="phone" type="tel" placeholder="09xx xxx xxx" inputmode="tel" autocomplete="tel">
+            <span class="err-msg">Số điện thoại chưa hợp lệ</span>
+          </div>
+          <div class="field" data-req>
+            <label for="f-svc">Dịch vụ cần</label>
+            <select id="f-svc" name="service">
+              <option value="">-- Chọn dịch vụ --</option>
+              <option>Sửa máy lạnh</option>
+              <option>Vệ sinh máy lạnh</option>
+              <option>Sửa tủ lạnh</option>
+              <option>Sửa máy giặt</option>
+              <option>Sửa tivi</option>
+              <option>Tháo lắp – di dời máy lạnh</option>
+            </select>
+            <span class="err-msg">Vui lòng chọn dịch vụ</span>
+          </div>
+        </div>
+
+        <div class="field" data-req>
+          <label for="f-addr">Địa chỉ</label>
+          <input id="f-addr" name="address" type="text" placeholder="Số nhà, đường, phường, quận">
+          <span class="err-msg">Vui lòng nhập địa chỉ</span>
+        </div>
+
+        <div class="field">
+          <label for="f-note">Mô tả tình trạng (không bắt buộc)</label>
+          <textarea id="f-note" name="note" placeholder="VD: Máy lạnh chạy nhưng không mát, có tiếng kêu lạ..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-red" style="width:100%">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          Gửi yêu cầu — Gọi lại sau 5 phút
+        </button>
+
+        <div class="form-ok" id="formOk">
+          ✓ Đã nhận yêu cầu (bản demo). Tổng đài sẽ gọi lại xác nhận trong ít phút.
+        </div>
+        <p class="privacy">Thông tin của bạn được bảo mật, chỉ dùng để liên hệ đặt lịch.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST BAR ============ -->
+<div class="trust">
+  <div class="wrap trust-grid">
+    <div class="rv-anim"><b><span class="num" data-to="30">0</span> phút</b><span>Có mặt tận nơi</span></div>
+    <div class="rv-anim"><b><span class="num" data-to="12000" data-sep>0</span>+</b><span>Khách hàng đã phục vụ</span></div>
+    <div class="rv-anim"><b><span class="num" data-to="12">0</span> tháng</b><span>Bảo hành sau sửa chữa</span></div>
+    <div class="rv-anim"><b><span class="num" data-to="4.9" data-dec="1">0</span>/5</b><span>Điểm đánh giá trung bình</span></div>
+  </div>
+</div>
+
+<!-- ============ MARQUEE THƯƠNG HIỆU ============ -->
+<div class="brands">
+  <p class="brands-label">Nhận sửa mọi thương hiệu</p>
+  <div class="marquee" id="marquee">
+    <ul>
+      <li>Daikin</li><li>Panasonic</li><li>LG</li><li>Samsung</li><li>Toshiba</li>
+      <li>Electrolux</li><li>Sharp</li><li>Aqua</li><li>Mitsubishi</li><li>Casper</li>
+      <li>Funiki</li><li>Hitachi</li><li>Sanyo</li><li>Midea</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ DỊCH VỤ ============ -->
+<section id="dichvu">
+  <div class="wrap">
+    <div class="sec-head rv-anim">
+      <span class="eyebrow">Dịch vụ của chúng tôi</span>
+      <h2>Sửa chữa &amp; bảo dưỡng mọi thiết bị điện lạnh</h2>
+      <p>Nhận sửa tại nhà tất cả hãng: Daikin, Panasonic, LG, Samsung, Toshiba, Electrolux, Sharp, Aqua…</p>
+    </div>
+
+    <div class="grid svc-grid">
+
+      <article class="svc rv-anim">
+        <div class="svc-ic">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="8" rx="2"/><path d="M6 17v2M12 17v3M18 17v2M5 9h14"/></svg>
+        </div>
+        <h3>Sửa máy lạnh</h3>
+        <p>Máy không mát, chảy nước, kêu to, chớp đèn báo lỗi, tự tắt nguồn.</p>
+        <ul>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Nạp gas R32 / R410A</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Thay board, tụ, quạt</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Xử lý rò rỉ gas, nghẹt ống</li>
+        </ul>
+        <div class="svc-price">
+          <div><b>Từ 200.000đ</b><small>Đã gồm công kiểm tra</small></div>
+          <a href="#datlich">Đặt lịch →</a>
+        </div>
+      </article>
+
+      <article class="svc rv-anim">
+        <div class="svc-ic">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M5 10h14M8 6v2M8 13v2"/></svg>
+        </div>
+        <h3>Sửa tủ lạnh</h3>
+        <p>Tủ không lạnh, đóng tuyết, chảy nước, block kêu, ngăn mát yếu.</p>
+        <ul>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Mọi dung tích, side-by-side</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Thay block, thay gas</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Cho mượn tủ nếu sửa lâu</li>
+        </ul>
+        <div class="svc-price">
+          <div><b>Từ 250.000đ</b><small>Báo giá trước khi sửa</small></div>
+          <a href="#datlich">Đặt lịch →</a>
+        </div>
+      </article>
+
+      <article class="svc rv-anim">
+        <div class="svc-ic">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="14" r="4"/><path d="M8 6h.01M12 6h.01"/></svg>
+        </div>
+        <h3>Sửa máy giặt</h3>
+        <p>Không cấp/xả nước, không vắt, rung lắc mạnh, báo lỗi trên màn hình.</p>
+        <ul>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Cửa trên &amp; cửa ngang</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Thay bo mạch, dây curoa</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Vệ sinh lồng giặt</li>
+        </ul>
+        <div class="svc-price">
+          <div><b>Từ 180.000đ</b><small>Miễn phí kiểm tra</small></div>
+          <a href="#datlich">Đặt lịch →</a>
+        </div>
+      </article>
+
+      <article class="svc rv-anim">
+        <div class="svc-ic">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M12 2v6M12 22v-4M2 12h6M22 12h-6M5 5l4 4M19 19l-4-4M19 5l-4 4M5 19l4-4"/></svg>
+        </div>
+        <h3>Vệ sinh máy lạnh</h3>
+        <p>Bảo dưỡng định kỳ giúp máy lạnh nhanh, tiết kiệm 20–30% tiền điện.</p>
+        <ul>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Xịt rửa bằng máy áp lực</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Diệt khuẩn, khử mùi hôi</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Kiểm tra gas miễn phí</li>
+        </ul>
+        <div class="svc-price">
+          <div><b>Từ 150.000đ</b><small>Giảm 15% từ 2 máy</small></div>
+          <a href="#datlich">Đặt lịch →</a>
+        </div>
+      </article>
+
+      <article class="svc rv-anim">
+        <div class="svc-ic">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>Sửa tivi</h3>
+        <p>Mất hình, mất tiếng, sọc màn hình, không lên nguồn, lỗi phần mềm.</p>
+        <ul>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> LED, OLED, Smart TV</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Thay panel, main, nguồn</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Sửa tại nhà, không cần mang đi</li>
+        </ul>
+        <div class="svc-price">
+          <div><b>Từ 250.000đ</b><small>Linh kiện chính hãng</small></div>
+          <a href="#datlich">Đặt lịch →</a>
+        </div>
+      </article>
+
+      <article class="svc rv-anim">
+        <div class="svc-ic">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 105.6 5.6l-9 9a2.8 2.8 0 01-4-4l9-9z"/><path d="M3 21l3-3"/></svg>
+        </div>
+        <h3>Tháo lắp – di dời</h3>
+        <p>Tháo lắp máy lạnh khi chuyển nhà, thi công đường ống mới trọn gói.</p>
+        <ul>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Thu hồi gas đúng kỹ thuật</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Khảo sát vị trí miễn phí</li>
+          <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Có xuất hoá đơn VAT</li>
+        </ul>
+        <div class="svc-price">
+          <div><b>Từ 350.000đ</b><small>Trọn gói tháo + lắp</small></div>
+          <a href="#datlich">Đặt lịch →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ VÌ SAO CHỌN ============ -->
+<section class="why">
+  <div class="wrap">
+    <div class="sec-head rv-anim">
+      <span class="eyebrow">Cam kết</span>
+      <h2>Vì sao khách hàng chọn chúng tôi</h2>
+      <p>Minh bạch từ giá đến quy trình — bạn biết chính xác mình trả tiền cho việc gì.</p>
+    </div>
+
+    <div class="grid why-grid">
+      <div class="why-card rv-anim"><div class="n">01</div><h3>Có mặt sau 30 phút</h3><p>Đội thợ phủ khắp các quận, nhận lịch là điều phối người gần bạn nhất.</p></div>
+      <div class="why-card rv-anim"><div class="n">02</div><h3>Báo giá trước khi sửa</h3><p>Kiểm tra xong báo giá rõ ràng. Bạn đồng ý mới làm, không phát sinh giữa chừng.</p></div>
+      <div class="why-card rv-anim"><div class="n">03</div><h3>Miễn phí kiểm tra</h3><p>Không sửa vẫn không mất phí kiểm tra, không thu phí di chuyển trong nội thành.</p></div>
+      <div class="why-card rv-anim"><div class="n">04</div><h3>Bảo hành đến 12 tháng</h3><p>Có phiếu bảo hành cho từng hạng mục. Lỗi lại trong thời hạn — sửa lại miễn phí.</p></div>
+      <div class="why-card rv-anim"><div class="n">05</div><h3>Linh kiện chính hãng</h3><p>Cho khách xem linh kiện cũ đã thay, nói rõ nguồn gốc và thời gian bảo hành.</p></div>
+      <div class="why-card rv-anim"><div class="n">06</div><h3>Thợ được đào tạo</h3><p>Kỹ thuật viên có chứng chỉ nghề, đồng phục, đeo thẻ, giữ gìn vệ sinh khi làm.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUY TRÌNH ============ -->
+<section id="quytrinh">
+  <div class="wrap">
+    <div class="sec-head rv-anim">
+      <span class="eyebrow">Quy trình</span>
+      <h2>4 bước — từ lúc gọi đến khi máy chạy lại</h2>
+    </div>
+
+    <div class="grid steps">
+      <div class="step rv-anim"><div class="step-line"></div><h3>Tiếp nhận yêu cầu</h3><p>Gọi hotline hoặc điền form. Tổng đài xác nhận địa chỉ và khung giờ bạn tiện.</p></div>
+      <div class="step rv-anim"><div class="step-line"></div><h3>Kỹ thuật viên đến</h3><p>Thợ gần nhất có mặt trong 30 phút, kiểm tra và xác định nguyên nhân hư hỏng.</p></div>
+      <div class="step rv-anim"><div class="step-line"></div><h3>Báo giá &amp; sửa chữa</h3><p>Báo giá chi tiết từng hạng mục. Bạn duyệt xong thợ mới bắt đầu thao tác.</p></div>
+      <div class="step rv-anim"><div class="step-line"></div><h3>Nghiệm thu &amp; bảo hành</h3><p>Chạy thử cùng khách, dọn sạch khu vực làm việc, xuất phiếu bảo hành.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BẢNG GIÁ ============ -->
+<section id="banggia" class="why">
+  <div class="wrap">
+    <div class="sec-head rv-anim">
+      <span class="eyebrow">Bảng giá tham khảo</span>
+      <h2>Giá minh bạch, không phí ẩn</h2>
+      <p>Mức giá dưới đây là giá demo tham khảo. Giá cuối cùng chốt sau khi thợ kiểm tra thực tế.</p>
+    </div>
+
+    <div class="price-wrap rv-anim">
+      <div class="tbl-scroll">
+        <table>
+          <thead>
+            <tr><th>Hạng mục</th><th>Thiết bị</th><th>Giá tham khảo</th><th>Bảo hành</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Vệ sinh máy lạnh</td><td>Treo tường 9.000 – 12.000 BTU</td><td class="price-val">150.000 – 200.000đ</td><td>1 tháng</td></tr>
+            <tr><td>Vệ sinh máy lạnh</td><td>Áp trần / tủ đứng</td><td class="price-val">350.000 – 600.000đ</td><td>1 tháng</td></tr>
+            <tr><td>Nạp gas R32 / R410A</td><td>Máy lạnh dân dụng</td><td class="price-val">400.000 – 700.000đ</td><td>6 tháng</td></tr>
+            <tr><td>Thay board mạch</td><td>Máy lạnh Inverter</td><td class="price-val">900.000 – 1.800.000đ</td><td>12 tháng</td></tr>
+            <tr><td>Thay block</td><td>Tủ lạnh 150 – 300L</td><td class="price-val">1.200.000 – 2.200.000đ</td><td>12 tháng</td></tr>
+            <tr><td>Xử lý tủ không lạnh</td><td>Tủ lạnh mọi loại</td><td class="price-val">250.000 – 800.000đ</td><td>6 tháng</td></tr>
+            <tr><td>Thay bo mạch máy giặt</td><td>Cửa trên / cửa ngang</td><td class="price-val">700.000 – 1.500.000đ</td><td>12 tháng</td></tr>
+            <tr><td>Tháo lắp máy lạnh</td><td>Trọn gói tháo + lắp lại</td><td class="price-val">350.000 – 700.000đ</td><td>3 tháng</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="note rv-anim">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      Đây là số liệu demo dùng để dựng giao diện. Vui lòng thay bằng bảng giá thật trước khi đưa website lên chạy quảng cáo.
+    </p>
+  </div>
+</section>
+
+<!-- ============ KHU VỰC ============ -->
+<section id="khuvuc" class="area">
+  <div class="wrap area-grid">
+    <div class="rv-anim" data-anim="left">
+      <span class="eyebrow">Khu vực phục vụ</span>
+      <h2 style="font-size:clamp(24px,3.6vw,34px)">Có mặt khắp TP.HCM &amp; vùng lân cận</h2>
+      <p style="margin-top:14px; color:var(--muted); font-size:16.5px">
+        Đội kỹ thuật chia theo cụm quận nên thời gian di chuyển trung bình chỉ 20–30 phút.
+        Khu vực ngoại thành vui lòng gọi hotline để được báo lịch cụ thể.
+      </p>
+      <div class="chips">
+        <span class="chip">Quận 1</span><span class="chip">Quận 3</span><span class="chip">Quận 4</span>
+        <span class="chip">Quận 5</span><span class="chip">Quận 6</span><span class="chip">Quận 7</span>
+        <span class="chip">Quận 8</span><span class="chip">Quận 10</span><span class="chip">Quận 11</span>
+        <span class="chip">Quận 12</span><span class="chip">Bình Thạnh</span><span class="chip">Gò Vấp</span>
+        <span class="chip">Phú Nhuận</span><span class="chip">Tân Bình</span><span class="chip">Tân Phú</span>
+        <span class="chip">Bình Tân</span><span class="chip">TP. Thủ Đức</span><span class="chip">Nhà Bè</span>
+        <span class="chip">Hóc Môn</span><span class="chip">Bình Chánh</span>
+      </div>
+      <a href="#datlich" class="btn btn-red" style="margin-top:26px">Kiểm tra khu vực của bạn</a>
+    </div>
+
+    <div class="ph rv-anim" data-anim="right" style="aspect-ratio:4/3" aria-label="Bản đồ khu vực phục vụ (ảnh demo)"></div>
+  </div>
+</section>
+
+<!-- ============ ĐÁNH GIÁ ============ -->
+<section id="danhgia">
+  <div class="wrap">
+    <div class="sec-head rv-anim">
+      <span class="eyebrow">Khách hàng nói gì</span>
+      <h2>Hơn 2.400 đánh giá, trung bình 4.9/5</h2>
+      <p>Nội dung đánh giá bên dưới là dữ liệu demo.</p>
+    </div>
+
+    <div class="grid rv-grid">
+      <article class="rv rv-anim">
+        <div class="stars" aria-label="5 sao">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+        </div>
+        <p>“Gọi lúc 8 giờ tối, 25 phút sau thợ tới. Máy lạnh chảy nước, xử lý gọn trong 1 tiếng, giá đúng như báo trước.”</p>
+        <div class="rv-who"><div class="av">MT</div><div><b>Chị Minh Thư</b><span>Quận 7 · Sửa máy lạnh</span></div></div>
+      </article>
+
+      <article class="rv rv-anim">
+        <div class="stars" aria-label="5 sao">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+        </div>
+        <p>“Tủ lạnh nhà mình không lạnh ngăn dưới. Thợ kiểm tra xong giải thích rõ nguyên nhân, thay block có phiếu bảo hành 12 tháng.”</p>
+        <div class="rv-who"><div class="av">HN</div><div><b>Anh Hoàng Nam</b><span>TP. Thủ Đức · Sửa tủ lạnh</span></div></div>
+      </article>
+
+      <article class="rv rv-anim">
+        <div class="stars" aria-label="5 sao">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5 4.8 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.4l7-.9z"/></svg>
+        </div>
+        <p>“Vệ sinh 3 máy lạnh cho văn phòng, thợ che chắn kỹ, làm xong dọn sạch. Tiền điện tháng sau giảm thấy rõ.”</p>
+        <div class="rv-who"><div class="av">TL</div><div><b>Chị Thuỳ Linh</b><span>Tân Bình · Vệ sinh máy lạnh</span></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="why">
+  <div class="wrap">
+    <div class="sec-head rv-anim">
+      <span class="eyebrow">Hỏi &amp; đáp</span>
+      <h2>Câu hỏi thường gặp</h2>
+    </div>
+
+    <div class="faq">
+      <details class="rv-anim" open>
+        <summary>Phí kiểm tra có mất tiền không?</summary>
+        <div class="ans">Hoàn toàn miễn phí trong nội thành TP.HCM. Nếu sau khi kiểm tra bạn không đồng ý mức giá sửa chữa, bạn không phải trả bất kỳ khoản nào.</div>
+      </details>
+      <details class="rv-anim">
+        <summary>Bao lâu thì thợ có mặt?</summary>
+        <div class="ans">Trung bình 30 phút với các quận trung tâm. Khu vực ngoại thành hoặc giờ cao điểm có thể lâu hơn — tổng đài sẽ báo chính xác khi xác nhận lịch.</div>
+      </details>
+      <details class="rv-anim">
+        <summary>Chính sách bảo hành như thế nào?</summary>
+        <div class="ans">Tuỳ hạng mục: vệ sinh bảo hành 1 tháng, nạp gas 6 tháng, thay linh kiện đến 12 tháng. Mỗi lần sửa đều có phiếu bảo hành ghi rõ nội dung và thời hạn.</div>
+      </details>
+      <details class="rv-anim">
+        <summary>Có làm ngoài giờ và ngày lễ không?</summary>
+        <div class="ans">Có. Chúng tôi nhận lịch 8:00 – 21:00 tất cả các ngày kể cả cuối tuần và ngày lễ. Ngoài khung giờ này vui lòng gọi hotline để được sắp xếp.</div>
+      </details>
+      <details class="rv-anim">
+        <summary>Thanh toán bằng hình thức nào?</summary>
+        <div class="ans">Tiền mặt, chuyển khoản hoặc ví điện tử, thanh toán sau khi nghiệm thu. Doanh nghiệp cần hoá đơn VAT vui lòng báo trước khi đặt lịch.</div>
+      </details>
+      <details class="rv-anim">
+        <summary>Nếu sửa lâu ngày thì sao?</summary>
+        <div class="ans">Với tủ lạnh và máy giặt cần mang về xưởng, chúng tôi cho mượn thiết bị thay thế miễn phí trong thời gian sửa chữa (áp dụng theo tình trạng kho).</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA CUỐI ============ -->
+<section class="cta">
+  <div class="wrap cta-in">
+    <h2 class="rv-anim">Máy đang hỏng? Gọi ngay, thợ tới sau 30 phút</h2>
+    <p class="rv-anim">Tổng đài hoạt động 8:00 – 21:00 mỗi ngày. Miễn phí kiểm tra, báo giá trước khi sửa.</p>
+    <div class="cta-btns rv-anim">
+      <!-- DEMO-PHONE -->
+      <a href="tel:0912345678" class="btn btn-red btn-lg">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg>
+        0912 345 678
+      </a>
+      <a href="#datlich" class="btn btn-ghost btn-lg">Đặt lịch online</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-logo">
+          <span class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="ic"><path d="M12 3v18M3 12h18M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>
+          </span>
+          Điện Lạnh 24H
+        </div>
+        <p>Dịch vụ sửa chữa &amp; bảo dưỡng điện lạnh tại nhà khu vực TP.HCM. Uy tín — minh bạch — bảo hành dài hạn.</p>
+        <p style="margin-top:14px"><span class="demo-tag">NỘI DUNG DEMO</span></p>
+      </div>
+
+      <div>
+        <h4>Dịch vụ</h4>
+        <ul>
+          <li><a href="#dichvu">Sửa máy lạnh</a></li>
+          <li><a href="#dichvu">Vệ sinh máy lạnh</a></li>
+          <li><a href="#dichvu">Sửa tủ lạnh</a></li>
+          <li><a href="#dichvu">Sửa máy giặt</a></li>
+          <li><a href="#dichvu">Sửa tivi</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Thông tin</h4>
+        <ul>
+          <li><a href="#quytrinh">Quy trình làm việc</a></li>
+          <li><a href="#banggia">Bảng giá</a></li>
+          <li><a href="#khuvuc">Khu vực phục vụ</a></li>
+          <li><a href="#faq">Câu hỏi thường gặp</a></li>
+          <li><a href="#">Chính sách bảo hành</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Liên hệ</h4>
+        <ul>
+          <!-- DEMO-PHONE -->
+          <li>Hotline: <a href="tel:0912345678" style="color:#fff; font-weight:700">0912 345 678</a></li>
+          <li>Zalo: <a href="#">0912 345 678</a></li>
+          <li>Email: <a href="mailto:demo@dienlanh24h.vn">demo@dienlanh24h.vn</a></li>
+          <li>Địa chỉ: 123 Đường Demo, Phường X, Quận Y, TP.HCM</li>
+          <li>Giờ làm việc: 8:00 – 21:00 (T2 – CN)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ft-bot">
+      <span>© 2026 Điện Lạnh 24H — Website demo, thông tin chưa phải dữ liệu thật.</span>
+      <span>MST: 0xxxxxxxxx (demo)</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ NÚT NỔI ============ -->
+<div class="float">
+  <button type="button" class="fbtn top" id="toTop" aria-label="Lên đầu trang">
+    <svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+  <a href="#" class="fbtn zalo" aria-label="Chat Zalo">Zalo</a>
+  <!-- DEMO-PHONE -->
+  <a href="tel:0912345678" class="fbtn call" aria-label="Gọi hotline">
+    <svg class="ic" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg>
+  </a>
+</div>
+
+<!-- ============ THANH HÀNH ĐỘNG (MOBILE) ============ -->
+<nav class="bar" aria-label="Hành động nhanh">
+  <!-- DEMO-PHONE -->
+  <a href="tel:0912345678" class="b1">
+    <svg class="ic" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg>
+    Gọi ngay
+  </a>
+  <a href="#" class="b2">
+    <svg class="ic" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 01-9 8.4 8.9 8.9 0 01-4-.9L3 21l1.9-4.6A8.4 8.4 0 013 11.5a8.5 8.5 0 019-8.4 8.5 8.5 0 019 8.4z"/></svg>
+    Zalo
+  </a>
+  <a href="#datlich" class="b3">
+    <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    Đặt lịch
+  </a>
+</nav>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- Menu mobile ---------- */
+  var burger = document.getElementById('burger');
+  var mnav = document.getElementById('mnav');
+
+  burger.addEventListener('click', function(){
+    var open = mnav.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+  });
+
+  mnav.addEventListener('click', function(e){
+    if (e.target.closest('a')) {
+      mnav.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  /* Người dùng bật "giảm chuyển động" trong hệ điều hành */
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Hiệu ứng xuất hiện khi cuộn (có stagger theo nhóm) ---------- */
+  var items = document.querySelectorAll('.rv-anim');
+
+  if (REDUCED || !('IntersectionObserver' in window)) {
+    items.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    /* Phần tử cùng cha xuất hiện lệch nhau 80ms cho mượt mắt */
+    var seen = new WeakMap();
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+
+        var el = entry.target;
+        var parent = el.parentElement;
+        var order = seen.get(parent) || 0;
+        seen.set(parent, order + 1);
+
+        el.style.setProperty('--d', Math.min(order * 80, 400) + 'ms');
+        el.classList.add('in');
+        io.unobserve(el);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    items.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---------- Đếm số ở thanh thống kê ---------- */
+  var COUNT_MS = 1600;
+
+  function runCounter(el){
+    var target = parseFloat(el.dataset.to);
+    var dec = parseInt(el.dataset.dec || '0', 10);
+    var sep = el.hasAttribute('data-sep');
+    var start = null;
+
+    function format(n){
+      var s = n.toFixed(dec);
+      return sep ? s.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : s;
+    }
+
+    function frame(now){
+      if (start === null) start = now;
+      var p = Math.min((now - start) / COUNT_MS, 1);
+      var eased = 1 - Math.pow(1 - p, 3);           /* ease-out-cubic */
+      el.textContent = format(target * eased);
+      if (p < 1) requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  var counters = document.querySelectorAll('.num');
+
+  if (REDUCED || !('IntersectionObserver' in window)) {
+    counters.forEach(function(el){
+      var dec = parseInt(el.dataset.dec || '0', 10);
+      var v = parseFloat(el.dataset.to).toFixed(dec);
+      el.textContent = el.hasAttribute('data-sep')
+        ? v.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : v;
+    });
+  } else {
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        runCounter(entry.target);
+        cio.unobserve(entry.target);
+      });
+    }, { threshold: 0.6 });
+
+    counters.forEach(function(el){ cio.observe(el); });
+  }
+
+  /* ---------- Hạt tuyết trong hero ---------- */
+  var SNOW_COUNT = 14;
+  var snow = document.getElementById('snow');
+
+  if (!REDUCED && snow) {
+    var flake = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">'
+      + '<path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9L4.9 19.1"/></svg>';
+    var html = '';
+
+    for (var i = 0; i < SNOW_COUNT; i++) {
+      var size = 10 + Math.random() * 20;                       /* 10–30px */
+      html += '<i style="'
+        + 'left:' + (Math.random() * 100).toFixed(2) + '%;'
+        + 'width:' + size.toFixed(0) + 'px; height:' + size.toFixed(0) + 'px;'
+        + 'opacity:' + (0.18 + Math.random() * 0.32).toFixed(2) + ';'
+        + '--dx:' + (Math.random() * 90 - 45).toFixed(0) + 'px;'
+        + 'animation-duration:' + (9 + Math.random() * 11).toFixed(1) + 's;'
+        + 'animation-delay:-' + (Math.random() * 12).toFixed(1) + 's;'
+        + '">' + flake + '</i>';
+    }
+
+    snow.innerHTML = html;
+  }
+
+  /* ---------- Marquee: nhân đôi danh sách để cuộn liền mạch ---------- */
+  var marquee = document.getElementById('marquee');
+
+  if (marquee) {
+    marquee.appendChild(marquee.querySelector('ul').cloneNode(true));
+  }
+
+  /* ---------- Thanh tiến trình + header co lại + nút lên đầu trang ---------- */
+  var progress = document.getElementById('progress');
+  var toTop = document.getElementById('toTop');
+  var ticking = false;
+
+  function onScroll(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+
+    progress.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+    document.querySelector('.hdr').classList.toggle('scrolled', y > 24);
+    toTop.classList.toggle('show', y > 600);
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(onScroll);
+  }, { passive: true });
+
+  onScroll();
+
+  toTop.addEventListener('click', function(){
+    window.scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' });
+  });
+
+  /* ---------- FAQ: mở/đóng có animation chiều cao ---------- */
+  document.querySelectorAll('details').forEach(function(d){
+    var summary = d.querySelector('summary');
+    var ans = d.querySelector('.ans');
+
+    summary.addEventListener('click', function(e){
+      if (REDUCED) return;                 /* để trình duyệt xử lý mặc định */
+      e.preventDefault();
+      if (d.classList.contains('animating')) return;
+
+      var from = d.open ? ans.scrollHeight : 0;
+      var to = d.open ? 0 : ans.scrollHeight;
+
+      if (!d.open) d.open = true;          /* mở trước để đo được chiều cao */
+
+      d.classList.add('animating');
+      ans.style.height = from + 'px';
+      ans.style.opacity = from ? 1 : 0;
+      ans.style.paddingBottom = from ? '' : '0px';
+
+      requestAnimationFrame(function(){
+        ans.style.height = to + 'px';
+        ans.style.opacity = to ? 1 : 0;
+        ans.style.paddingBottom = to ? '20px' : '0px';
+      });
+
+      ans.addEventListener('transitionend', function done(ev){
+        if (ev.propertyName !== 'height') return;
+        ans.removeEventListener('transitionend', done);
+        d.classList.remove('animating');
+        ans.style.height = '';
+        ans.style.opacity = '';
+        ans.style.paddingBottom = '';
+        if (to === 0) d.open = false;
+      });
+    });
+  });
+
+  /* ---------- Validate form đặt lịch ---------- */
+  var PHONE_RE = /^(0|\+84)\d{8,10}$/;
+  var form = document.getElementById('bookingForm');
+  var okBox = document.getElementById('formOk');
+
+  function isValidField(field){
+    var input = field.querySelector('input, select, textarea');
+    var value = input.value.trim();
+
+    if (field.hasAttribute('data-req') && value === '') return false;
+    if (field.hasAttribute('data-phone') && !PHONE_RE.test(value.replace(/[\s.\-()]/g, ''))) return false;
+    return true;
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var fields = form.querySelectorAll('.field[data-req]');
+    var firstInvalid = null;
+
+    fields.forEach(function(field){
+      var valid = isValidField(field);
+      field.classList.toggle('err', !valid);
+      if (!valid && !firstInvalid) firstInvalid = field;
+    });
+
+    if (firstInvalid) {
+      okBox.classList.remove('show');
+      firstInvalid.querySelector('input, select, textarea').focus();
+      return;
+    }
+
+    /* DEMO: chưa gửi đi đâu cả.
+       Khi chạy thật, thay bằng fetch() tới API / Google Sheet / CRM. */
+    okBox.classList.add('show');
+    form.reset();
+    setTimeout(function(){ okBox.classList.remove('show'); }, 6000);
+  });
+
+  /* Xoá trạng thái lỗi ngay khi người dùng sửa lại */
+  form.addEventListener('input', function(e){
+    var field = e.target.closest('.field');
+    if (field && field.classList.contains('err') && isValidField(field)) {
+      field.classList.remove('err');
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -6,3 +6,9 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+
+# Thu muc tha file tho tu khach (Zalo, Drive...). Anh dung that da duoc chep
+# sang img/ va khai bao trong scripts/process-images.py.
+# Khong commit vi: (1) trung lap voi img/, (2) chua ca video goc — file mp4
+# 96 MB se lam phinh repo vinh vien, git giu moi phien ban khong xoa duoc.
+anh/

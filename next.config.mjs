@@ -14,6 +14,9 @@ const CSP = [
   "font-src 'self'",
   "connect-src 'self'",
   "form-action 'self'",
+  // Nhung video YouTube. Khong co dong nay thi iframe bi default-src 'self'
+  // chan, khach bam play chi thay khung trang.
+  "frame-src https://www.youtube-nocookie.com https://www.youtube.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "object-src 'none'",

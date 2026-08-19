@@ -38,6 +38,27 @@ FILES = {
     15: "2aOboQs63g13yMtefcbj0f5WeiRRrNPfTbsJ2jPU.jpg",
     16: "2aOboQs646nz5yd8RgqbPCOL6t4YH7l1bm1mzZOi.jpg",
     17: "2aOboQsJq3QbROmVxQfjwtrX14sVQJLJ8BoG8Tx2.jpg",  # logo
+
+    # --- Dot 2 (19/8): khach gui bo anh MAY LANH ---
+    18: "2aOboQsaS5dFMkE4PoxqKp56z1W1QnbgFtlDjOaW.jpg",
+    19: "2aOboQsaS61oB5fNVo7Qlp85UfdcqIkohv3O6EXQ.jpg",
+    20: "2aOboQsaS61oB5fNVo7QlpBEFDuTzKEzszWogR6G.jpg",
+    21: "2aOboQsaS61qbubl10zcc9m1RIz9FoxI6WF1K6UK.jpg",
+    22: "2aOboQsaS61qbubl10zcc9rhhgBB3NmwysYQ0SZs.jpg",
+    23: "2aOboQsaS61qbubl10zcc9tF3ZrTaJFiVJ2NiSZ6.jpg",
+    24: "2aOboQsaS61qbubl10zccA9kklKCXoUBUhoC1krw.jpg",
+    25: "2aOboQsaS62apWUxZxbFeYjpwa2XmCFRv9A0evWS.jpg",
+    26: "2aOboQsaS62apWUxZxbFeZCX87upv0mQRBPcom1I.jpg",
+    27: "2aOboQsaS63SLbDIeWpSDyXqY9Hr0oxcteu5u8eW.jpg",
+    28: "2aOboQsaVsb4Tn9OPtTHDIONDgFmFKC9MWpePmSW.jpg",
+    29: "2aOboQsaVsb4Tn9OPtTHDIRXtm8InP7h9kjRWDNg.jpg",
+
+    # Ban cat san cua #19 — anh goc lo ban chan o day khung, ma anh ngang thi
+    # process() chi cat hai ben nen focus khong chinh duoc.
+    30: "ml-11-crop.jpg",
+
+    # Poster video YouTube — da cat bo hai dai mo hai ben cua anh 1280x720
+    31: "video-poster.jpg",
 }
 
 # (khoa, so anh goc, rong, cao, tam crop doc 0..1, alt)
@@ -77,6 +98,26 @@ JOBS = [
     ("g-06", 15, 750, 1000, 0.50, "Dàn lạnh được tháo rời để vệ sinh sâu từng bộ phận"),
     ("g-07", 16, 750, 1000, 0.42, "Kỹ thuật viên kiểm tra bo mạch và hệ thống làm lạnh của tủ lạnh"),
     ("g-08", 13, 750, 1000, 0.50, "Thi công vệ sinh máy lạnh tận nơi, gọn gàng không ảnh hưởng sinh hoạt"),
+
+    # --- GALLERY MAY LANH (dot 2, doc 3:4) ---
+    # alt viet dung noi dung tung anh: Google doc alt de hieu anh, va day cung
+    # la thu trinh doc man hinh doc cho nguoi khiem thi. Viet bua la phi ca anh.
+    ("ml-01", 25, 750, 1000, 0.50, "Cận cảnh lớp bụi bẩn tích tụ dày trong dàn lạnh máy lạnh lâu ngày không vệ sinh"),
+    ("ml-02", 18, 750, 1000, 0.50, "Cánh quạt lồng sóc dàn lạnh bám kín bụi bẩn trước khi vệ sinh"),
+    ("ml-03", 26, 750, 1000, 0.50, "Dàn trao đổi nhiệt máy lạnh bám bẩn làm giảm khả năng làm lạnh"),
+    ("ml-04", 24, 750, 1000, 0.50, "Dàn lạnh tháo rời đặt trên bạt hứng nước để vệ sinh sâu từng bộ phận"),
+    ("ml-05", 27, 750, 1000, 0.45, "Tháo toàn bộ vỏ dàn lạnh để vệ sinh block quạt và dàn coil"),
+    ("ml-06", 29, 750, 1000, 0.50, "Kiểm tra thông số kỹ thuật và tình trạng bên trong dàn lạnh máy lạnh"),
+    ("ml-07", 21, 750, 1000, 0.42, "Dàn nóng máy lạnh Daikin lắp trên giá đỡ tường ngoài trời"),
+    ("ml-08", 22, 750, 1000, 0.42, "Kiểm tra dàn nóng và đường ống đồng của máy lạnh Daikin"),
+    ("ml-09", 23, 750, 1000, 0.42, "Dàn nóng máy lạnh sau khi vệ sinh và siết lại chân giá đỡ"),
+    ("ml-10", 28, 750, 1000, 0.45, "Trải bạt che chắn đồ đạc trước khi vệ sinh máy lạnh trong phòng khách"),
+    ("ml-11", 30, 750, 1000, 0.50, "Tháo mặt nạ và lưới lọc máy lạnh để chuẩn bị vệ sinh tại nhà khách"),
+    ("ml-12", 20, 750, 1000, 0.50, "Tháo lưới lọc dàn lạnh lắp ở vị trí trên cao ngoài ban công"),
+
+    # --- POSTER VIDEO (doc 9:16, khop video quay bang dien thoai) ---
+    ("video-poster", 31, 720, 1280, 0.50,
+     "Kỹ thuật viên Điện Lạnh Thái Tuấn xịt rửa dàn lạnh máy lạnh bằng máy bơm áp lực"),
 
     # --- ANH DUNG TRONG THE DICH VU (phu, ti le 4:3) ---
     ("sv-aircon", 15, 1000, 750, 0.50, "Vệ sinh và sửa chữa dàn lạnh máy lạnh mọi thương hiệu"),

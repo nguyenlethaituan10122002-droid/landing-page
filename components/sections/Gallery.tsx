@@ -5,12 +5,27 @@ import { Container } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Lightbox } from '@/components/ui/Lightbox'
-import { img, galleryKeys } from '@/lib/images'
+import { img, galleryGroups, galleryKeys } from '@/lib/images'
+
+const TAT_CA = 'tat-ca'
 
 /** Gallery anh cong viec thuc te — toan bo do doi ky thuat chup tai hien truong. */
 export function Gallery() {
-  const photos = galleryKeys.map(img)
+  const [nhom, setNhom] = useState<string>(TAT_CA)
   const [open, setOpen] = useState<number | null>(null)
+
+  /**
+   * Loc bang cach chon lai danh sach khoa chu KHONG an bang CSS, de so anh
+   * next/image phai tai xuong dung bang so anh dang hien.
+   */
+  const keys =
+    nhom === TAT_CA ? galleryKeys : (galleryGroups.find((g) => g.id === nhom)?.keys ?? galleryKeys)
+  const photos = keys.map(img)
+
+  const tabs = [
+    { id: TAT_CA, label: 'Tất cả', dem: galleryKeys.length },
+    ...galleryGroups.map((g) => ({ id: g.id, label: g.label, dem: g.keys.length })),
+  ]
 
   return (
     <section id="hinh-anh" aria-labelledby="hinh-anh-title" className="py-16 lg:py-24">
@@ -22,9 +37,34 @@ export function Gallery() {
           desc="Trải bạt bảo vệ sàn, tháo lồng vệ sinh sâu, dọn dẹp sạch sẽ trước khi bàn giao — ảnh chụp thực tế, không dàn dựng."
         />
 
-        <ul className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <div role="tablist" aria-label="Lọc hình ảnh theo loại thiết bị" className="mt-10 flex flex-wrap justify-center gap-2">
+          {tabs.map((t) => {
+            const dangChon = t.id === nhom
+            return (
+              <button
+                key={t.id}
+                type="button"
+                role="tab"
+                aria-selected={dangChon}
+                onClick={() => { setNhom(t.id); setOpen(null) }}
+                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-[13.5px] font-semibold transition-colors ${
+                  dangChon
+                    ? 'border-brand-700 bg-brand-700 text-white'
+                    : 'border-line bg-white text-ink-2 hover:border-brand-400 hover:text-brand-800'
+                }`}
+              >
+                {t.label}
+                <span className={`text-[12px] font-bold ${dangChon ? 'text-brand-200' : 'text-muted'}`}>
+                  {t.dem}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+
+        <ul className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {photos.map((photo, i) => (
-            <Reveal as="li" key={galleryKeys[i]} delay={((i % 8) + 1) as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}>
+            <Reveal as="li" key={keys[i]} delay={((i % 8) + 1) as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}>
               <button
                 type="button"
                 onClick={() => setOpen(i)}

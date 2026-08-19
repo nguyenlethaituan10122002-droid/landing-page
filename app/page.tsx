@@ -11,6 +11,7 @@ import { Services } from '@/components/sections/Services'
 import { BeforeAfter } from '@/components/sections/BeforeAfter'
 import { Commitments } from '@/components/sections/Commitments'
 import { Process } from '@/components/sections/Process'
+import { VideoSection } from '@/components/sections/VideoSection'
 import { Pricing } from '@/components/sections/Pricing'
 import { Gallery } from '@/components/sections/Gallery'
 import { ServiceAreas } from '@/components/sections/ServiceAreas'
@@ -30,6 +31,7 @@ export default function HomePage() {
         <BeforeAfter />
         <Commitments />
         <Process />
+        <VideoSection />
         <Pricing />
         <Gallery />
         <ServiceAreas />

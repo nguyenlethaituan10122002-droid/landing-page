@@ -4,6 +4,7 @@ import { areas } from '@/content/areas'
 import { faqs } from '@/content/faq'
 import { pricing } from '@/content/pricing'
 import { zaloHref } from '@/lib/format'
+import { video, videoWatchUrl } from '@/content/video'
 
 const BIZ_ID = `${site.url}/#business`
 
@@ -94,9 +95,27 @@ export function buildJsonLd() {
     publisher: { '@id': BIZ_ID },
   }
 
+  /**
+   * VideoObject — cho phep Google hien video ngay trong ket qua tim kiem.
+   * thumbnailUrl tro ve anh tren YouTube chu khong phai ban self-host, vi
+   * Google can mot URL cong khai on dinh va doc duoc kich thuoc.
+   */
+  const videoObject = {
+    '@type': 'VideoObject',
+    '@id': `${site.url}/#video`,
+    name: video.title,
+    description: video.desc,
+    thumbnailUrl: [`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`],
+    uploadDate: video.uploadDate,
+    duration: video.duration,
+    contentUrl: videoWatchUrl,
+    embedUrl: `https://www.youtube.com/embed/${video.id}`,
+    publisher: { '@id': BIZ_ID },
+  }
+
   return {
     '@context': 'https://schema.org',
-    '@graph': [localBusiness, website, ...serviceNodes, faqPage],
+    '@graph': [localBusiness, website, ...serviceNodes, faqPage, videoObject],
   }
 }
 

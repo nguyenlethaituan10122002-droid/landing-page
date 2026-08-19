@@ -54,8 +54,18 @@ export function BookingForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...values, source: document.referrer || 'truc-tiep' }),
       })
-      const json = await res.json()
-      if (!res.ok || !json.ok) throw new Error(json.message ?? 'Gửi không thành công')
+
+      /**
+       * Khong duoc goi thang res.json(). Khi ham bi Vercel cat vi qua gio, no
+       * tra ve trang TEXT ("An error occurred with your deployment") chu khong
+       * phai JSON — res.json() nem loi va khach nhin thay nguyen van
+       * "Unexpected token 'A' ... is not valid JSON", vua kho hieu vua lo ra
+       * chi tiet noi bo.
+       */
+      const json = await res.json().catch(() => null)
+      if (!res.ok || !json?.ok) {
+        throw new Error(json?.message ?? 'Hệ thống đang bận, chưa gửi được yêu cầu')
+      }
       setStatus('done')
       setValues(emptyBooking)
       setTouched({})

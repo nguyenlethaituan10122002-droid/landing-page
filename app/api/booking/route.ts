@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextResponse, after } from 'next/server'
 import { bookingSchema } from '@/lib/validation'
 import { isRateLimited } from '@/lib/rate-limit'
 
@@ -6,19 +6,39 @@ export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 /**
- * Apps Script "nguoi" sau vai tieng khong ai goi. Do thuc te:
- *   - lan goi dau tien sau khi nam im: 32.5s
- *   - cac lan sau do:                    2.0s
+ * Do thuc te do tre cua Apps Script (15 luot, nhieu thoi diem trong ngay):
+ *   median ~2s · nhung duoi keo toi 33.85s · that thuong, KHONG lien quan idle
  *
- * Tiem sua dien lanh thi khach thua, nen cold start la chuyen thuong ngay:
- * khach dau tien trong ngay se dinh. De timeout 10s thi khach do bi bao loi
- * trong khi Google VAN ghi dong vao Sheet o giay thu 32 — mat khach oan.
+ * Vercel cat ham o maxDuration. Nen neu cho Sheet ghi xong roi moi tra loi thi
+ * bat ky luot nao roi vao duoi deu thanh 504 FUNCTION_INVOCATION_TIMEOUT, va
+ * khach nhan duoc trang loi text cua Vercel thay vi JSON.
+ *
+ * Cach lam: KHONG bat khach cho het duoi.
+ *   - Promise.race tra ve NGAY khi ghi xong, nen CHO_NHANH_MS chi la TRAN chu
+ *     khong phai thoi gian cho thuong le. Luot nhanh van xong trong ~2s.
+ *   - Qua tran ma chua xong: tra loi ngay, viec ghi Sheet giao cho after()
+ *     chay tiep o nen. Khach khong phai ngoi nhin vong quay 30 giay.
+ *
+ * Vi sao tran chi 3s: khach nhin thay CUNG MOT man hinh thanh cong o ca hai
+ * nhanh, nen cho lau hon khong doi lai duoc gi cho ho — chi de may chu xac
+ * nhan duoc that/gia. Doi lay 3 giay cua moi khach de biet dieu do thi khong
+ * dang, nhat la khi that bai that su hau het la timeout o giay thu 25 chu
+ * khong phai loi som.
  */
-const WEBHOOK_TIMEOUT_MS = 28_000
+const CHO_NHANH_MS = 3_000
+
+/** Moi luot goi Apps Script cho toi da bao lau */
+const WEBHOOK_TIMEOUT_MS = 25_000
+
+/**
+ * Tong ngan sach cho ca viec ghi nen. Phai nho hon maxDuration, neu khong
+ * Vercel cat giua chung. Het ngan sach thi thoi khong thu lai nua.
+ */
+const TONG_NGAN_SACH_MS = 50_000
 
 /**
  * Apps Script thinh thoang tra 404 khi client di theo redirect cua no
- * (do duoc: 1 that bai / 3 lan goi voi cung mot payload). Loi nay ngau nhien
+ * (do duoc: 1 that bai / 3 lan goi voi cung mot payload). Loi ngau nhien
  * chu khong do du lieu, nen thu lai la qua.
  *
  * DANH DOI: neu lan dau thuc su DA ghi duoc dong roi moi hong o buoc redirect,
@@ -29,7 +49,7 @@ const WEBHOOK_MAX_RETRIES = 2
 const WEBHOOK_RETRY_DELAY_MS = 800
 
 // Cho phep route chay lau hon mac dinh (Vercel Pro/Enterprise doc gia tri nay)
-export const maxDuration = 30
+export const maxDuration = 60
 
 function clientIp(req: Request): string {
   const fwd = req.headers.get('x-forwarded-for')
@@ -118,34 +138,66 @@ export async function POST(req: Request) {
     device: req.headers.get('user-agent')?.includes('Mobile') ? 'Mobile' : 'Desktop',
   })
 
-  let loiCuoi: unknown = null
-
-  for (let lan = 1; lan <= WEBHOOK_MAX_RETRIES; lan++) {
-    try {
-      const res = await fetch(webhook, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: payload,
-        signal: AbortSignal.timeout(WEBHOOK_TIMEOUT_MS),
-      })
-      if (!res.ok) throw new Error(`Sheet trả về ${res.status}`)
-      return NextResponse.json({ ok: true })
-    } catch (err) {
-      loiCuoi = err
-      console.error(`[booking] Lan ${lan}/${WEBHOOK_MAX_RETRIES} that bai:`, err)
-      if (lan < WEBHOOK_MAX_RETRIES) {
-        await new Promise((tiep) => setTimeout(tiep, WEBHOOK_RETRY_DELAY_MS))
-      }
-    }
+  const khach = {
+    name: data.name, phone: data.phone, service: data.service, address: data.address,
   }
 
-  // Het luot thu — ghi day du thong tin khach ra log de con cuu duoc lead
-  console.error('[booking] MAT LEAD, khong ghi duoc vao Sheet:', {
-    loi: String(loiCuoi),
-    khach: { name: data.name, phone: data.phone, service: data.service, address: data.address },
-  })
-  return NextResponse.json(
-    { ok: false, message: 'Hệ thống đang bận. Vui lòng gọi trực tiếp hotline để được hỗ trợ ngay.' },
-    { status: 502 },
-  )
+  /**
+   * Ghi vao Sheet, tu thu lai trong pham vi ngan sach. KHONG BAO GIO nem loi —
+   * vi ham nay con duoc chay o nen qua after(), ma promise bi reject o do se
+   * thanh unhandled rejection.
+   */
+  const ghiVaoSheet = async (): Promise<boolean> => {
+    const hanChot = Date.now() + TONG_NGAN_SACH_MS
+    let loiCuoi: unknown = null
+
+    for (let lan = 1; lan <= WEBHOOK_MAX_RETRIES; lan++) {
+      const conLai = hanChot - Date.now()
+      if (conLai <= 0) break
+
+      try {
+        const res = await fetch(webhook, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+          signal: AbortSignal.timeout(Math.min(WEBHOOK_TIMEOUT_MS, conLai)),
+        })
+        if (!res.ok) throw new Error(`Sheet trả về ${res.status}`)
+        return true
+      } catch (err) {
+        loiCuoi = err
+        console.error(`[booking] Lan ${lan}/${WEBHOOK_MAX_RETRIES} that bai:`, err)
+        if (lan < WEBHOOK_MAX_RETRIES && hanChot - Date.now() > WEBHOOK_RETRY_DELAY_MS) {
+          await new Promise((tiep) => setTimeout(tiep, WEBHOOK_RETRY_DELAY_MS))
+        }
+      }
+    }
+
+    // Het cach — in day du thong tin khach ra log de con cuu duoc lead
+    console.error('[booking] MAT LEAD, khong ghi duoc vao Sheet:', { loi: String(loiCuoi), khach })
+    return false
+  }
+
+  const viec = ghiVaoSheet()
+
+  // Cho nhanh: neu Sheet kip ghi xong thi bao thanh cong that
+  const kipGhi = await Promise.race([
+    viec,
+    new Promise<null>((tiep) => setTimeout(() => tiep(null), CHO_NHANH_MS)),
+  ])
+
+  if (kipGhi === true) return NextResponse.json({ ok: true })
+
+  if (kipGhi === false) {
+    return NextResponse.json(
+      { ok: false, message: 'Hệ thống đang bận. Vui lòng gọi trực tiếp hotline để được hỗ trợ ngay.' },
+      { status: 502 },
+    )
+  }
+
+  // Qua CHO_NHANH_MS ma chua xong: tra loi ngay, ghi tiep o nen.
+  // after() giu ham song sau khi response da gui di.
+  after(viec)
+  console.warn('[booking] Sheet cham, chuyen sang ghi nen:', khach)
+  return NextResponse.json({ ok: true, pending: true })
 }

@@ -50,7 +50,12 @@ export function Gallery() {
                   </svg>
                 </span>
 
-                <span className="absolute inset-x-0 bottom-0 translate-y-3 p-3.5 text-left text-[12.5px] leading-snug font-medium text-white opacity-0 transition-all duration-400 group-hover:translate-y-0 group-hover:opacity-100">
+                {/* aria-hidden: noi dung nay trung voi alt cua anh, de trinh doc man hinh
+                    khong doc lai lan hai */}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0 translate-y-3 p-3.5 text-left text-[12.5px] leading-snug font-medium text-white opacity-0 transition-all duration-400 group-hover:translate-y-0 group-hover:opacity-100"
+                >
                   {photo.alt}
                 </span>
               </button>

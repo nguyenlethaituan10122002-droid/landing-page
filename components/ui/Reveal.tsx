@@ -3,8 +3,33 @@ import { useEffect, useRef, useState } from 'react'
 
 /**
  * Bao boc phan tu de hien dan khi cuon toi.
- * Dung IntersectionObserver, tu ngat sau lan dau -> khong ton CPU khi cuon.
+ *
+ * Toan trang dung CHUNG MOT IntersectionObserver thay vi moi khoi mot cai.
+ * Trang co ~50 khoi Reveal, neu moi khoi tu tao observer rieng thi trinh duyet
+ * phai dung 50 bo quan sat -> ton thoi gian CPU luc khoi tao (chi so TBT).
  */
+
+type CanBao = (hien: boolean) => void
+
+let boQuanSat: IntersectionObserver | null = null
+const danhSach = new WeakMap<Element, CanBao>()
+
+function layBoQuanSat(): IntersectionObserver {
+  if (boQuanSat) return boQuanSat
+  boQuanSat = new IntersectionObserver(
+    (cacMuc) => {
+      for (const muc of cacMuc) {
+        if (!muc.isIntersecting) continue
+        danhSach.get(muc.target)?.(true)
+        danhSach.delete(muc.target)
+        boQuanSat!.unobserve(muc.target) // hien roi thi thoi khong theo doi nua
+      }
+    },
+    { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+  )
+  return boQuanSat
+}
+
 export function Reveal({
   children, delay = 0, className = '', as: Tag = 'div',
 }: {
@@ -20,22 +45,18 @@ export function Reveal({
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShown(true)
-          io.disconnect()
-        }
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
-    )
+    const io = layBoQuanSat()
+    danhSach.set(el, setShown)
     io.observe(el)
-    return () => io.disconnect()
+    return () => {
+      danhSach.delete(el)
+      io.unobserve(el)
+    }
   }, [])
 
   const d = delay ? ` reveal-d${delay}` : ''
   return (
-    // @ts-expect-error - ref type khac nhau giua cac the
+    // @ts-expect-error - kieu ref khac nhau giua cac the
     <Tag ref={ref} className={`reveal${d}${shown ? ' is-visible' : ''} ${className}`}>
       {children}
     </Tag>

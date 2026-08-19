@@ -27,7 +27,9 @@
 
   --color-ink:   #0F172A;
   --color-ink-2: #334155;
-  --color-muted: #64748B;
+  /* Da lam dam hon (#64748B -> #57667C) de dat WCAG AA tren CA BA nen:
+     trang 5.84 · brand-50 5.42 · brand-100 4.77 (nguong can 4.5) */
+  --color-muted: #57667C;
   --color-line:  #E2E8F0;
 
   --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;

@@ -2,6 +2,30 @@
  * NGUON SU THAT DUY NHAT ve thong tin doanh nghiep.
  * Doi hotline / dia chi / gio lam viec chi can sua o day.
  */
+const DIA_CHI_MAC_DINH = 'https://dienlanhthaituan.vn'
+
+/**
+ * Vercel tao bien moi truong ngay ca khi o Value bo trong — luc do gia tri la
+ * CHUOI RONG chu khong phai undefined, nen toan tu ?? khong nhay sang mac dinh.
+ * Hau qua: site.url = '' -> new URL('') o app/layout.tsx nem ERR_INVALID_URL
+ * -> build chet ngay tren Vercel trong khi may cuc bo van chay binh thuong
+ * (vi .env.local luon co gia tri).
+ *
+ * Nhan them ca truong hop dien thieu giao thuc ("dienlanhthaituan.vn") va
+ * dau / thua o cuoi, vi ca hai deu lam hong canonical va sitemap.
+ */
+function locDiaChiTrang(thoR?: string): string {
+  const tho = thoR?.trim()
+  if (!tho) return DIA_CHI_MAC_DINH
+
+  const coGiaoThuc = /^https?:\/\//i.test(tho) ? tho : `https://${tho}`
+  try {
+    return new URL(coGiaoThuc).origin
+  } catch {
+    return DIA_CHI_MAC_DINH
+  }
+}
+
 export const site = {
   name: 'Điện Lạnh Thái Tuấn',
   shortName: 'Điện Lạnh Thái Tuấn',
@@ -31,7 +55,7 @@ export const site = {
     closes: '21:00',
   },
 
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://dienlanhthaituan.vn',
+  url: locDiaChiTrang(process.env.NEXT_PUBLIC_SITE_URL),
   copyright: '© 2026 Điện Lạnh Thái Tuấn',
 } as const
 

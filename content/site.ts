@@ -2,7 +2,13 @@
  * NGUON SU THAT DUY NHAT ve thong tin doanh nghiep.
  * Doi hotline / dia chi / gio lam viec chi can sua o day.
  */
-const DIA_CHI_MAC_DINH = 'https://dienlanhthaituan.com'
+/**
+ * Phai la dia chi CUOI CUNG sau redirect.
+ * Vercel dat www lam Production, con apex thi 308 redirect sang www — khai
+ * canonical la apex se thanh "canonical tro toi mot URL bi chuyen huong",
+ * bat Google tu doan. Neu sau nay doi apex lam chinh thi sua lai dong nay.
+ */
+const DIA_CHI_MAC_DINH = 'https://www.dienlanhthaituan.com'
 
 /**
  * Vercel tao bien moi truong ngay ca khi o Value bo trong — luc do gia tri la

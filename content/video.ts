@@ -16,7 +16,12 @@ export const video = {
     'xịt rửa dàn lạnh bằng máy bơm áp lực, vệ sinh cánh quạt lồng sóc và lắp lại hoàn chỉnh.',
   /** ISO 8601 — 5 phut 57 giay */
   duration: 'PT5M57S',
-  uploadDate: '2026-08-19',
+  /**
+   * ISO 8601 DAY DU ke ca mui gio (+07:00 = gio Viet Nam).
+   * Chi ghi '2026-08-19' thi Google Search Console bao "van de khong nghiem
+   * trong" — khong chan rich result nhung nen va cho sach.
+   */
+  uploadDate: '2026-08-19T00:00:00+07:00',
 } as const
 
 export const videoWatchUrl = `https://www.youtube.com/watch?v=${video.id}`

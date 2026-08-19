@@ -59,8 +59,8 @@ function clientIp(req: Request): string {
 /**
  * Chan CSRF: chi nhan request tu chinh domain nay.
  *
- * KHONG dung origin.endsWith(host) — "https://evil-dienlanhthaituan.vn"
- * ket thuc bang "dienlanhthaituan.vn" nen ke tan cong chi can dang ky mot
+ * KHONG dung origin.endsWith(host) — "https://evil-dienlanhthaituan.com"
+ * ket thuc bang "dienlanhthaituan.com" nen ke tan cong chi can dang ky mot
  * domain trong giong la lach duoc. Phai so khop host chinh xac.
  */
 function cungNguonGoc(req: Request): boolean {

@@ -2,7 +2,7 @@
  * NGUON SU THAT DUY NHAT ve thong tin doanh nghiep.
  * Doi hotline / dia chi / gio lam viec chi can sua o day.
  */
-const DIA_CHI_MAC_DINH = 'https://dienlanhthaituan.vn'
+const DIA_CHI_MAC_DINH = 'https://dienlanhthaituan.com'
 
 /**
  * Vercel tao bien moi truong ngay ca khi o Value bo trong — luc do gia tri la
@@ -11,7 +11,7 @@ const DIA_CHI_MAC_DINH = 'https://dienlanhthaituan.vn'
  * -> build chet ngay tren Vercel trong khi may cuc bo van chay binh thuong
  * (vi .env.local luon co gia tri).
  *
- * Nhan them ca truong hop dien thieu giao thuc ("dienlanhthaituan.vn") va
+ * Nhan them ca truong hop dien thieu giao thuc ("dienlanhthaituan.com") va
  * dau / thua o cuoi, vi ca hai deu lam hong canonical va sitemap.
  */
 function locDiaChiTrang(thoR?: string): string {
